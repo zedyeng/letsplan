@@ -2,69 +2,96 @@ package com.letsplan.entities;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
+@Table(name="evenement")
 public class Evenement {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    private String libelle;
-    private String type;
-    private Date duree;
+	private String libelle;
+	private String type;
+	private Date duree;
 
 	@OneToOne(targetEntity = Lieu.class)
 	private Lieu lieu;
-    
-    @ManyToOne
-    private User utilisateurAdmin;
 
-	@ElementCollection(targetClass=User.class)
-	@MapKeyColumn(name="mapInvité")
-	private Map<User, Boolean> mapInvité;
+	@ManyToOne
+	private Utilisateur utilisateurAdmin;
 
-    public Evenement() {
-    }
+	@ElementCollection(targetClass = Utilisateur.class)
+	@MapKeyColumn(name = "mapInvité")
+	private Map<Utilisateur, Boolean> mapInvité;
 
-    public Long getId() {
-        return id;
-    }
+	public Evenement() {
+		mapInvité = new HashMap<Utilisateur, Boolean>();
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getTitle() {
-        return libelle;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setTitle(String title) {
-        this.libelle = title;
-    }
+	public String getLibelle() {
+		return libelle;
+	}
 
-    public String getBody() {
-        return type;
-    }
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
-    public void setBody(String body) {
-        this.type = body;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public Date getDateCreated() {
-        return duree;
-    }
+	public void setType(String type) {
+		this.type = type;
+	}
 
-    public void setDateCreated(Date dateCreated) {
-        this.duree = dateCreated;
-    }
+	public Date getDuree() {
+		return duree;
+	}
 
-    public User getUtilisateurAdmin() {
-        return utilisateurAdmin;
-    }
+	public void setDuree(Date duree) {
+		this.duree = duree;
+	}
 
-    public void setUtilisateurAdmin(User utilisateurAdmin) {
-        this.utilisateurAdmin = utilisateurAdmin;
-    }
+	public Lieu getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
+	}
+
+	public Map<Utilisateur, Boolean> getMapInvité() {
+		return mapInvité;
+	}
+
+	public void setMapInvité(Map<Utilisateur, Boolean> mapInvité) {
+		this.mapInvité = mapInvité;
+	}
+
+	public Date getDateCreated() {
+		return duree;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.duree = dateCreated;
+	}
+
+	public Utilisateur getUtilisateurAdmin() {
+		return utilisateurAdmin;
+	}
+
+	public void setUtilisateurAdmin(Utilisateur utilisateurAdmin) {
+		this.utilisateurAdmin = utilisateurAdmin;
+	}
 }

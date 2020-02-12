@@ -1,14 +1,13 @@
 package com.letsplan.controllers;
 
 import com.letsplan.entities.Role;
-import com.letsplan.entities.User;
+import com.letsplan.entities.Utilisateur;
 import com.letsplan.pojos.UserRegistration;
-import com.letsplan.service.UserService;
+import com.letsplan.service.UtilisateurService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -16,10 +15,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
-public class UserController {
+public class UtilisateurController {
 
     @Autowired
-    private UserService userService;
+    private UtilisateurService utilisateurService;
 
     @Autowired
     private TokenStore tokenStore;
@@ -30,7 +29,7 @@ public class UserController {
     public String register(@RequestBody UserRegistration userRegistration){
         if(!userRegistration.getPassword().equals(userRegistration.getPasswordConfirmation()))
             return "Error the two passwords do not match";
-        else if(userService.getUser(userRegistration.getUsername()) != null)
+        else if(utilisateurService.getUser(userRegistration.getUsername()) != null)
             return "Error this username already exists";
 
         //Checking for non alphanumerical characters in the username.
@@ -38,14 +37,14 @@ public class UserController {
         if(pattern.matcher(userRegistration.getUsername()).find())
             return "No special characters are allowed in the username";
 
-        userService.save(new User(userRegistration.getUsername(), userRegistration.getPassword(), Arrays.asList(new Role("USER"), new Role("ACTUATOR")), userRegistration.getNom(), 
+        utilisateurService.save(new Utilisateur(userRegistration.getUsername(), userRegistration.getPassword(), Arrays.asList(new Role("USER"), new Role("ACTUATOR")), userRegistration.getNom(), 
         		userRegistration.getPrenom(), userRegistration.getMail()));
         return "User created";
     }
 
     @GetMapping(value = "/users")
-    public List<User> users(){
-        return userService.getAllUsers();
+    public List<Utilisateur> users(){
+        return utilisateurService.getAllUsers();
     }
 
     @GetMapping(value = "/logouts")

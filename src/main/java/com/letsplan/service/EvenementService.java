@@ -1,7 +1,7 @@
 package com.letsplan.service;
 
 import com.letsplan.entities.Evenement;
-import com.letsplan.entities.User;
+import com.letsplan.entities.Utilisateur;
 import com.letsplan.repositories.EvenementRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class EvenementService {
         evenementRepository.save(evenement);
     }
 
-    public List<Evenement> findByUser(User user){
+    public List<Evenement> findByUser(Utilisateur user){
         return evenementRepository.findByUtilisateurAdminId(user.getId());
     }
 

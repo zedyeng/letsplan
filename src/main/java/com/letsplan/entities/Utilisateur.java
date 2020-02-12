@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class User {
+@Table(name="utilisateur")
+public class Utilisateur {
 
 	@Id
 	@GeneratedValue
@@ -26,10 +27,10 @@ public class User {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles;
 
-	User() {
+	Utilisateur() {
 	}
 
-	public User(String username, String password, List<Role> roles, String nom, String prenom, String mail) {
+	public Utilisateur(String username, String password, List<Role> roles, String nom, String prenom, String mail) {
 		this.username = username;
 		this.nom = nom;
 		this.prenom = prenom;

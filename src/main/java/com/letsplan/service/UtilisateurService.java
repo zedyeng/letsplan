@@ -1,7 +1,7 @@
 package com.letsplan.service;
 
-import com.letsplan.entities.User;
-import com.letsplan.repositories.UserRepository;
+import com.letsplan.entities.Utilisateur;
+import com.letsplan.repositories.UtilisateurRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,26 +12,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UtilisateurService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UtilisateurRepository utilisateurRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
-    public void save(User user){
+    public void save(Utilisateur user){
         user.setPassword(passwordEncoder().encode(user.getPassword()));
-        userRepository.save(user);
+        utilisateurRepository.save(user);
     }
 
-    public User getUser(String username){
-        return userRepository.findByUsername(username);
+    public Utilisateur getUser(String username){
+        return utilisateurRepository.findByUsername(username);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<Utilisateur> getAllUsers() {
+        return utilisateurRepository.findAll();
     }
 }

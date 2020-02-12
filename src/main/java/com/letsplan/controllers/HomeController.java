@@ -25,5 +25,10 @@ public class HomeController {
     public String singlePost(){
         return "post";
     }
+    
+    @GetMapping(value="/evenement")
+    public String evenement(){
+        return "evenement";
+    }
 
 }

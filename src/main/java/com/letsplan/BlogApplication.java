@@ -2,9 +2,9 @@ package com.letsplan;
 
 import com.letsplan.config.CustomUserDetails;
 import com.letsplan.entities.Role;
-import com.letsplan.entities.User;
-import com.letsplan.repositories.UserRepository;
-import com.letsplan.service.UserService;
+import com.letsplan.entities.Utilisateur;
+import com.letsplan.repositories.UtilisateurRepository;
+import com.letsplan.service.UtilisateurService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -33,9 +33,9 @@ public class BlogApplication {
 	 * @throws Exception
 	 */
 	@Autowired
-	public void authenticationManager(AuthenticationManagerBuilder builder, UserRepository repository, UserService userService) throws Exception {
+	public void authenticationManager(AuthenticationManagerBuilder builder, UtilisateurRepository repository, UtilisateurService utilisateurService) throws Exception {
 		if (repository.count()==0) {
-			userService.save(new User("admin", "adminPassword", Arrays.asList(new Role("USER"), new Role("ACTUATOR") , new Role("ADMIN")),"adminNom", "adminPrenom", "adminMail"));
+			utilisateurService.save(new Utilisateur("admin", "adminPassword", Arrays.asList(new Role("USER"), new Role("ACTUATOR") , new Role("ADMIN")),"adminNom", "adminPrenom", "adminMail"));
 		}
 		builder.userDetailsService(userDetailsService(repository)).passwordEncoder(passwordEncoder);
 	}
@@ -45,7 +45,7 @@ public class BlogApplication {
 	 * @param repository
 	 * @return
 	 */
-	private UserDetailsService userDetailsService(final UserRepository repository) {
+	private UserDetailsService userDetailsService(final UtilisateurRepository repository) {
 		return username -> new CustomUserDetails(repository.findByUsername(username));
 	}
 }

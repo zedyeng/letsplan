@@ -5,7 +5,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.letsplan.entities.Role;
-import com.letsplan.entities.User;
+import com.letsplan.entities.Utilisateur;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,10 +20,10 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private String username;
 
-    public CustomUserDetails(User user) {
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.authorities = translate(user.getRoles());
+    public CustomUserDetails(Utilisateur utilisateur) {
+        this.username = utilisateur.getUsername();
+        this.password = utilisateur.getPassword();
+        this.authorities = translate(utilisateur.getRoles());
     }
 
     /**
