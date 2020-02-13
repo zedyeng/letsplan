@@ -23,12 +23,12 @@ public class Evenement {
 	@ManyToOne
 	private Utilisateur utilisateurAdmin;
 
-	@ElementCollection(targetClass = Utilisateur.class)
-	@MapKeyColumn(name = "mapInvité")
-	private Map<Utilisateur, Boolean> mapInvité;
+	@ElementCollection
+//	@ElementCollection(targetClass = Boolean.class)
+//	@MapKeyColumn(name = "mapInvites")
+	private Map<Long, Integer> mapInvites = new HashMap<Long, Integer>();
 
 	public Evenement() {
-		mapInvité = new HashMap<Utilisateur, Boolean>();
 	}
 
 	public Long getId() {
@@ -71,12 +71,12 @@ public class Evenement {
 		this.lieu = lieu;
 	}
 
-	public Map<Utilisateur, Boolean> getMapInvité() {
-		return mapInvité;
+	public Map<Long, Integer> getMapInvité() {
+		return mapInvites;
 	}
 
-	public void setMapInvité(Map<Utilisateur, Boolean> mapInvité) {
-		this.mapInvité = mapInvité;
+	public void setMapInvité(Map<Long, Integer> mapInvité) {
+		this.mapInvites = mapInvité;
 	}
 
 	public Date getDateCreated() {

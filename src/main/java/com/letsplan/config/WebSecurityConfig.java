@@ -30,8 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(customUserDetailsService)
-            .passwordEncoder(passwordEncoder);    
+            .userDetailsService(customUserDetailsService);
+//            .passwordEncoder(passwordEncoder);    
     }
 
     @Override

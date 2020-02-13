@@ -6,14 +6,17 @@ import com.letsplan.entities.Lieu;
 import com.letsplan.pojos.EvenementCreation;
 import com.letsplan.pojos.UserRegistration;
 import com.letsplan.service.EvenementService;
+import com.letsplan.service.LieuService;
 import com.letsplan.service.UtilisateurService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +24,9 @@ public class BlogController {
 
 	@Autowired
 	private EvenementService evenementService;
+	
+	@Autowired
+	private LieuService lieuService;
 
 	@Autowired
 	private UtilisateurService userService;
@@ -72,17 +78,25 @@ public class BlogController {
 				return "Un ou plusieurs utilisateurs non trouvé";
 			}else {
 				System.out.println(userService.getUser(username).getNom());
-				evenement.getMapInvité().put(userService.getUser(username), false);
+				evenement.getMapInvité().put(userService.getUser(username).getId(), 1);
 				
 			}
 		}
-		
-		evenement.setLieu(new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(), evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement()));
-		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		evenement.setUtilisateurAdmin(userService.getUser(userDetails.getUsername()));
+		Lieu lieu = new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(), evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement());
+		evenement.setLieu(lieu);
+//		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		System.out.println(currentPrincipalName);
+		evenement.setUtilisateurAdmin(userService.getUser(currentPrincipalName));
 		evenement.setDateCreated(evenementCreation.getDate());
 
+		lieuService.insert(lieu);
 		
+		for (Map.Entry<Long, Integer> entry : evenement.getMapInvité().entrySet()) {
+		    System.out.println(entry.getKey()+" : "+entry.getValue());
+		}
+		System.out.println("laaadddd");
 		evenementService.insert(evenement);
 		
 		return "Evenement created";
