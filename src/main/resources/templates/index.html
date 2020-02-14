@@ -1,51 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <head th:replace="fragments/header :: header('Blog index')" />
-
 <body>
-    <div id="root">
-        <div th:replace="fragments/nav :: nav"></div>
-        <div class="container">
-            <div class="row">
-                <div class="twelve columns">
-                    <h1>Mes evenements crees</h1>
-                    <ul>
-                        <li v-for="evenement in evenements">
-                            <h3><a :href="getLink(post)">{{post.title}}</a></h3>
-                            <h6>Created by : {{post.creator.username}}</h6>
-                            <p>{{post.body}}</p>
-                            <hr />
-                        </li>
-                    </ul>
-                </div>
+<div id="root">
+    <div th:replace="fragments/nav :: nav"></div>
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <h1>My blog</h1>
+                <ul>
+                    <li v-for="post in posts">
+                        <h3><a :href="getLink(post)">{{post.title}}</a></h3>
+                        <h6>Created by : {{post.creator.username}}</h6>
+                        <p>{{post.body}}</p>
+                        <hr />
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 </body>
 <div th:replace="fragments/footer :: foot"></div>
 
 <script>
     var app = new Vue({
         el: '#root',
-        data: { evenements: [] },
-        mounted() {
-            this.fetchEvenements();
+        data : {posts: []},
+        mounted(){
+            this.fetchPosts();
         },
         methods: {
-            fetchEvenements() {
-                axios.get("/evenements").then(function (response) {
-                    this.evenements = response.data;
+            fetchPosts(){
+                axios.get("/posts").then(function(response){
+                    this.posts = response.data;
                 }.bind(this));
             },
-            getLink(post) {
+            getLink(post){
                 return '/post/' + post.id;
             }
         }
 
     });
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-
-</html><script> src = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.js"</script>
+</html>

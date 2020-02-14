@@ -71,7 +71,7 @@ public class BlogController {
 		return evenementService.deleteEvenement(id);
 	}
 
-	@PostMapping(value = "/evenement")
+	@PostMapping(value = "/creationEvenement")
 	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) {
 		String tableau[] = evenementCreation.getLoginsInvite().split(",");
 		Evenement evenement = new Evenement();
