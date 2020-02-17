@@ -8,7 +8,7 @@ Résumé :
 L’objectif serait de créer une application qui prendrait les disponibilités d’un groupe de personnes (ami/collègues ou autre) afin d’organiser et avoir le jour et l’heure qui plait au plus grand nombre pour une sortie ou un dîner entre on pourrait aussi ajouter des fonctionnalités permettant de prendre en compte la contrainte des gens comme l’heure de départ et l’heure d’arrivée
 
 Technologies utilisées :
-Le site web sera divisé en 2 parties, un back end et un front end. La partie back-end sera codé en java, et le front-end en angularJs.
+Le site web sera divisé en 2 parties, un back end et un front end. La partie back-end sera codé en java, et le front-end en vueJs.
 
 Liste des fonctionnalités :
 
