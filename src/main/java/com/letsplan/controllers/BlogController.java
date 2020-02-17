@@ -3,6 +3,7 @@ package com.letsplan.controllers;
 import com.letsplan.config.CustomUserDetails;
 import com.letsplan.entities.Evenement;
 import com.letsplan.entities.Lieu;
+import com.letsplan.entities.Utilisateur;
 import com.letsplan.pojos.EvenementCreation;
 import com.letsplan.pojos.UserRegistration;
 import com.letsplan.service.EvenementService;
@@ -40,7 +41,7 @@ public class BlogController {
 //    @Autowired
 //    private CommentService commentService;
 
-	@GetMapping(value = "/posts")
+	@GetMapping(value = "/evenements")
 	public List<Evenement> evenements() {
 		return evenementService.getAllEvenement();
 	}
@@ -65,6 +66,13 @@ public class BlogController {
 	public List<Evenement> evenementByUser(@PathVariable String username) {
 		return evenementService.findByUser(userService.getUser(username));
 	}
+	
+	@GetMapping(value = "/evenements/{username}")
+	public List<Evenement> evenementsInvite(@PathVariable String username) {
+		Utilisateur utilisateur = userService.getUser(username);
+		return evenementService.getAllEvenementInvite(utilisateur.getId());
+	}
+	
 
 	@DeleteMapping(value = "/post/{id}")
 	public boolean deleteEvenement(@PathVariable Long id) {

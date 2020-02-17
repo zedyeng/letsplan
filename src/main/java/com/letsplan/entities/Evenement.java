@@ -24,8 +24,7 @@ public class Evenement {
 	private Utilisateur utilisateurAdmin;
 
 	@ElementCollection
-//	@ElementCollection(targetClass = Boolean.class)
-//	@MapKeyColumn(name = "mapInvites")
+//	@MapKeyColumn(name = "evenement_map_invites")
 	private Map<Long, Integer> mapInvites = new HashMap<Long, Integer>();
 
 	public Evenement() {

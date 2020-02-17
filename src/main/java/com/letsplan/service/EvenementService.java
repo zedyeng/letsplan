@@ -5,6 +5,7 @@ import com.letsplan.entities.Utilisateur;
 import com.letsplan.repositories.EvenementRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,13 @@ public class EvenementService {
     public List<Evenement> getAllEvenement(){
         return evenementRepository.findAll();
     }
-
+   
+    public List<Evenement> getAllEvenementInvite(Long utilisateurId){
+    	
+    	
+        return evenementRepository.getAllEvenementInvite(utilisateurId);
+    }
+    
     public void insert(Evenement evenement) {
         evenementRepository.save(evenement);
     }
@@ -43,4 +50,7 @@ public class EvenementService {
     public Optional<Evenement> find(Long evenementId) {
         return evenementRepository.findById(evenementId);
     }
+
+
+
 }

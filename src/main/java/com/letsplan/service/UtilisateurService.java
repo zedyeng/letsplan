@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UtilisateurService {
@@ -25,6 +26,10 @@ public class UtilisateurService {
     public void save(Utilisateur user){
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         utilisateurRepository.save(user);
+    }
+    
+    public Optional<Utilisateur> getUser(Long id){
+        return utilisateurRepository.findById(id);
     }
 
     public Utilisateur getUser(String username){
