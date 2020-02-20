@@ -21,9 +21,9 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping(value="post/{id}")
-    public String singlePost(){
-        return "post";
+    @GetMapping(value="l_evenement/{id}")
+    public String evenementInvitation(){
+        return "evenementInvitation";
     }
     
     @GetMapping(value="/evenement")

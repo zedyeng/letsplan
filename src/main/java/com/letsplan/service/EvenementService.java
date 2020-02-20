@@ -22,9 +22,16 @@ public class EvenementService {
     }
    
     public List<Evenement> getAllEvenementInvite(Long utilisateurId){
-    	
-    	
         return evenementRepository.getAllEvenementInvite(utilisateurId);
+    }
+    
+    public List<Long> getAllInviteByEvenement(Long evenementId){
+		return evenementRepository.getAllInviteByEvenement(evenementId);
+    }
+    
+    public void update(Evenement evenement, Utilisateur utilisateur, Integer disponibilite) {
+    	System.out.println(disponibilite);
+    	evenementRepository.update(evenement.getId(), utilisateur.getId(), disponibilite);
     }
     
     public void insert(Evenement evenement) {

@@ -4,6 +4,7 @@ import com.letsplan.config.CustomUserDetails;
 import com.letsplan.entities.Evenement;
 import com.letsplan.entities.Lieu;
 import com.letsplan.entities.Utilisateur;
+import com.letsplan.pojos.DisponibilitePojo;
 import com.letsplan.pojos.EvenementCreation;
 import com.letsplan.pojos.UserRegistration;
 import com.letsplan.service.EvenementService;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +48,8 @@ public class BlogController {
 		return evenementService.getAllEvenement();
 	}
 
-	@GetMapping(value = "/the_post/{id}")
-	public Optional<Evenement> getPostById(@PathVariable Long id) {
+	@GetMapping(value = "/evenement/{id}")
+	public Optional<Evenement> getEvenementById(@PathVariable Long id) {
 		return evenementService.getEvenement(id);
 	}
 
@@ -74,10 +76,10 @@ public class BlogController {
 	}
 	
 
-	@DeleteMapping(value = "/post/{id}")
-	public boolean deleteEvenement(@PathVariable Long id) {
-		return evenementService.deleteEvenement(id);
-	}
+//	@DeleteMapping(value = "/post/{id}")
+//	public boolean deleteEvenement(@PathVariable Long id) {
+//		return evenementService.deleteEvenement(id);
+//	}
 
 	@PostMapping(value = "/creationEvenement")
 	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) {
@@ -87,7 +89,7 @@ public class BlogController {
 			if (userService.getUser(username) == null) {
 				return "Un ou plusieurs utilisateurs non trouvé";
 			}else {
-				evenement.getMapInvité().put(userService.getUser(username).getId(), 1);
+				evenement.getMapInvité().put(userService.getUser(username).getId(), 0);
 			}
 		}
 		Lieu lieu = new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(), evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement());
@@ -108,10 +110,28 @@ public class BlogController {
 //        return commentService.deletePost(id);
 //    }
 
-//    @GetMapping(value = "/comments/{postId}")
-//    public List<Lieu> getComments(@PathVariable Long postId){
-//        return commentService.getComments(postId);
-//    }
+	@PostMapping(value = "/evenement/changerDisponibilite/{evenementId}/{username}")
+	public String changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Evenement> evenement = evenementService.getEvenement(evenementId);
+        System.out.println("laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        if(evenement.isPresent()) {
+        	evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(), disponibilite.getDisponible());
+        	evenementService.update(evenement.get(), userService.getUser(userDetails.getUsername()), disponibilite.getDisponible());
+        	return "ca a marchééééé";
+        }
+        return "nananananan";
+	}
+	
+    @GetMapping(value = "/evenement/invites/{evenementId}")
+    public List<Optional<Utilisateur>> getInvites(@PathVariable Long evenementId){
+    	List<Long> listIdInivtes = evenementService.getAllInviteByEvenement(evenementId); 
+    	List<Optional<Utilisateur>> listInvites = new ArrayList<Optional<Utilisateur>>();
+    	for (Long idInvites: listIdInivtes) {
+			listInvites.add(userService.getUser(idInvites));
+		}
+    	return listInvites;
+    }
 
 //    @PostMapping(value = "/post/postComment")
 //    public boolean postComment(@RequestBody CommentPojo comment){
