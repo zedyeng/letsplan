@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -27,11 +28,6 @@ public class EvenementService {
     
     public List<Long> getAllInviteByEvenement(Long evenementId){
 		return evenementRepository.getAllInviteByEvenement(evenementId);
-    }
-    
-    public void update(Evenement evenement, Utilisateur utilisateur, Integer disponibilite) {
-    	System.out.println(disponibilite);
-    	evenementRepository.update(evenement.getId(), utilisateur.getId(), disponibilite);
     }
     
     public void insert(Evenement evenement) {

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -110,27 +111,30 @@ public class BlogController {
 //        return commentService.deletePost(id);
 //    }
 
-	@PostMapping(value = "/evenement/changerDisponibilite/{evenementId}/{username}")
+	@PostMapping(value = "/l_evenement/changerDisponibilite/{evenementId}/{username}")
 	public String changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Evenement> evenement = evenementService.getEvenement(evenementId);
-        System.out.println("laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         if(evenement.isPresent()) {
-        	evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(), disponibilite.getDisponible());
-        	evenementService.update(evenement.get(), userService.getUser(userDetails.getUsername()), disponibilite.getDisponible());
+        	evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(), disponibilite.getDisponibilite());
+        	evenementService.insert(evenement.get());
         	return "ca a marchééééé";
         }
-        return "nananananan";
+        return "fini";
 	}
 	
     @GetMapping(value = "/evenement/invites/{evenementId}")
-    public List<Optional<Utilisateur>> getInvites(@PathVariable Long evenementId){
+    public Map<String, Integer> getInvites(@PathVariable Long evenementId){
+//    public List<Optional<Utilisateur>> getInvites(@PathVariable Long evenementId){
     	List<Long> listIdInivtes = evenementService.getAllInviteByEvenement(evenementId); 
-    	List<Optional<Utilisateur>> listInvites = new ArrayList<Optional<Utilisateur>>();
-    	for (Long idInvites: listIdInivtes) {
-			listInvites.add(userService.getUser(idInvites));
+    	Map<String, Integer> map = new HashMap<>();
+    	
+    	for (Long invite : evenementService.getEvenement(evenementId).get().getMapInvité().keySet()) {
+    		if(userService.getUser(invite).isPresent()) {
+    			map.put(userService.getUser(invite).get().getUsername(), evenementService.getEvenement(evenementId).get().getMapInvité().get(invite));
+    		}
 		}
-    	return listInvites;
+    	return map;
     }
 
 //    @PostMapping(value = "/post/postComment")

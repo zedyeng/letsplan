@@ -2,23 +2,21 @@ package com.letsplan.pojos;
 
 public class DisponibilitePojo {
 
-	private Integer disponible;
+	private Integer disponibilite;
 
 	public DisponibilitePojo() {
 	}
 	
-	public DisponibilitePojo(Integer disponible) {
-		this.disponible = disponible;
+	public DisponibilitePojo(Integer disponibilite) {
+		this.disponibilite = disponibilite;
 	}
 
-	public Integer getDisponible() {
-		return disponible;
+	public Integer getDisponibilite() {
+		return disponibilite;
 	}
 
-	public void setDisponible(Integer disponible) {
-		this.disponible = disponible;
+	public void setDisponibilite(Integer disponibilite) {
+		this.disponibilite = disponibilite;
 	}
-	
-	
-	
+
 }
