@@ -2,6 +2,7 @@ package com.letsplan.controllers;
 
 import com.letsplan.entities.Role;
 import com.letsplan.entities.Utilisateur;
+import com.letsplan.exception.UsernameExistantException;
 import com.letsplan.pojos.UserRegistration;
 import com.letsplan.service.UtilisateurService;
 
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
+@ControllerAdvice
 @RestController
 public class UtilisateurController {
 
@@ -26,11 +28,12 @@ public class UtilisateurController {
 
     //a rendre mvc
     @PostMapping(value = "/register")
+    @ExceptionHandler(value = UsernameExistantException.class)
     public String register(@RequestBody UserRegistration userRegistration){
-        if(!userRegistration.getPassword().equals(userRegistration.getPasswordConfirmation()))
-            return "Error the two passwords do not match";
-        else if(utilisateurService.getUser(userRegistration.getUsername()) != null)
-            return "Error this username already exists";
+        if(utilisateurService.getUser(userRegistration.getUsername()) != null) {
+        	throw new UsernameExistantException();
+//        	return "Error this username already exists";
+        }
 
         //Checking for non alphanumerical characters in the username.
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");

@@ -9,12 +9,18 @@
 		<div class="container">
 			<div class="row">
 				<div class="twelve columns">
-					<h1>My blog</h1>
+					<h1>{{evenement.title}}</h1>
 					<ul>
 						<li v-if="evenement">
 							<h3>{{evenement.title}}</h3>
 							<h6>Cree par : {{evenement.utilisateurAdmin.username}}</h6>
 							<p>{{evenement.duree}}</p>
+							<!-- <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span> -->
+							<!-- <span th:text="${#dates.format(evenement.duree, 'yyyy/MM/dd HH:mm')}"></span> -->
+
+							<!-- <span th:text="${evenement.duree == null ? '' : #dates.format(evenement.duree, 'dd MMM yyyy HH:mm')}"></span>-->
+                            <!-- <td th:text="${evenement.duree == null ? 'sssss' : evenement.duree}"/> -->
+
 							<p>{{evenement.lieu.libelle}}</p>
 							<hr />
 

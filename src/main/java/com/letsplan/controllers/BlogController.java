@@ -12,6 +12,10 @@ import com.letsplan.service.LieuService;
 import com.letsplan.service.UtilisateurService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,12 +23,14 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.regex.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Properties;
 
 @RestController
 public class BlogController {
@@ -34,16 +40,19 @@ public class BlogController {
 	
 	@Autowired
 	private LieuService lieuService;
+	
+	@Autowired
+    public JavaMailSender emailSender;
 
 	@Autowired
 	private UtilisateurService userService;
-
-    @Autowired
-    private TokenStore tokenStore;
 	
-//    @Autowired
-//    private CommentService commentService;
+    private static Pattern pattern;
+    private static Matcher matcher;
 
+//    @Autowired
+//    private TokenStore tokenStore;
+	
 	@GetMapping(value = "/evenements")
 	public List<Evenement> evenements() {
 		return evenementService.getAllEvenement();
@@ -52,17 +61,6 @@ public class BlogController {
 	@GetMapping(value = "/evenement/{id}")
 	public Optional<Evenement> getEvenementById(@PathVariable Long id) {
 		return evenementService.getEvenement(id);
-	}
-
-	@PostMapping(value = "/post")
-	public String publishPost(@RequestBody Evenement evenement) {
-		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		if (evenement.getDateCreated() == null)
-			evenement.setDateCreated(new Date());
-		evenement.setUtilisateurAdmin(userService.getUser(userDetails.getUsername()));
-		evenementService.insert(evenement);
-		return "Post was published";
 	}
 
 	@GetMapping(value = "/posts/{username}")
@@ -76,19 +74,25 @@ public class BlogController {
 		return evenementService.getAllEvenementInvite(utilisateur.getId());
 	}
 	
-
-//	@DeleteMapping(value = "/post/{id}")
-//	public boolean deleteEvenement(@PathVariable Long id) {
-//		return evenementService.deleteEvenement(id);
-//	}
-
 	@PostMapping(value = "/creationEvenement")
 	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) {
 		String tableau[] = evenementCreation.getLoginsInvite().split(",");
 		Evenement evenement = new Evenement();
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		for (String username : tableau) {
 			if (userService.getUser(username) == null) {
-				return "Un ou plusieurs utilisateurs non trouvé";
+				System.err.println("dans if");
+				System.err.println("***************");
+		        pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+		        matcher = pattern.matcher(username);
+		        while(matcher.find()){
+		        	SimpleMailMessage message = new SimpleMailMessage();
+		        	message.setTo("le.minhtri230999@gmail.com");
+		        	message.setFrom(userService.getUser(userDetails.getUsername()).getUsername());
+		        	message.setSubject(userService.getUser(userDetails.getUsername()).getUsername() + " vous invite à " + evenementCreation.getLibelle());
+		        	message.setText("Veuillez créer un compte et répondre à l'invitation : http://localhost:8080/registration");
+		        	this.emailSender.send(message);
+		        }
 			}else {
 				evenement.getMapInvité().put(userService.getUser(username).getId(), 0);
 			}
@@ -96,7 +100,6 @@ public class BlogController {
 		Lieu lieu = new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(), evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement());
 		evenement.setLieu(lieu);
 
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		evenement.setUtilisateurAdmin(userService.getUser(userDetails.getUsername()));
 		evenement.setDateCreated(evenementCreation.getDate());
 		evenement.setLibelle(evenementCreation.getLibelle());
@@ -105,11 +108,6 @@ public class BlogController {
 		evenementService.insert(evenement);
 		return "Evenement created";
 	}
-
-//    @DeleteMapping(value = "/comment/{id}")
-//    public boolean deleteComment(@PathVariable Long id){
-//        return commentService.deletePost(id);
-//    }
 
 	@PostMapping(value = "/l_evenement/changerDisponibilite/{evenementId}/{username}")
 	public String changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
@@ -125,28 +123,17 @@ public class BlogController {
 	
     @GetMapping(value = "/evenement/invites/{evenementId}")
     public Map<String, Integer> getInvites(@PathVariable Long evenementId){
-//    public List<Optional<Utilisateur>> getInvites(@PathVariable Long evenementId){
-    	List<Long> listIdInivtes = evenementService.getAllInviteByEvenement(evenementId); 
     	Map<String, Integer> map = new HashMap<>();
-    	
-    	for (Long invite : evenementService.getEvenement(evenementId).get().getMapInvité().keySet()) {
-    		if(userService.getUser(invite).isPresent()) {
-    			map.put(userService.getUser(invite).get().getUsername(), evenementService.getEvenement(evenementId).get().getMapInvité().get(invite));
+    	if(evenementService.getEvenement(evenementId).isPresent()) {
+    		for (Long invite : evenementService.getEvenement(evenementId).get().getMapInvité().keySet()) {
+    			if(userService.getUser(invite).isPresent()) {
+    				map.put(userService.getUser(invite).get().getUsername(), evenementService.getEvenement(evenementId).get().getMapInvité().get(invite));
+    			}
     		}
+    		return map;
+    	}else {
+			throw new RuntimeException();
 		}
-    	return map;
     }
-
-//    @PostMapping(value = "/post/postComment")
-//    public boolean postComment(@RequestBody CommentPojo comment){
-//        Optional<Post> post = postService.find(comment.getPostId());
-//        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User creator = userService.getUser(userDetails.getUsername());
-//        if(post == null || creator == null)
-//            return false;
-//
-//        commentService.comment(new Comment(comment.getText(),post,creator));
-//        return true;
-//    }
-
+    
 }
