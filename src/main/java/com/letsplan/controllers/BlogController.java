@@ -10,7 +10,16 @@ import com.letsplan.modele.UserRegistration;
 import com.letsplan.service.EvenementService;
 import com.letsplan.service.LieuService;
 import com.letsplan.service.UtilisateurService;
+import com.mailjet.client.ClientOptions;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.errors.MailjetSocketTimeoutException;
+import com.mailjet.client.resource.Emailv31;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
@@ -37,20 +46,19 @@ public class BlogController {
 
 	@Autowired
 	private EvenementService evenementService;
-	
+
 	@Autowired
 	private LieuService lieuService;
-	
+//
 	@Autowired
-    public JavaMailSender emailSender;
+	public JavaMailSender emailSender;
 
 	@Autowired
 	private UtilisateurService userService;
-	
-    private static Pattern pattern;
-    private static Matcher matcher;
 
-	
+	private static Pattern pattern;
+	private static Matcher matcher;
+
 	@GetMapping(value = "/evenements")
 	public List<Evenement> evenements() {
 		return evenementService.getAllEvenement();
@@ -65,35 +73,70 @@ public class BlogController {
 	public List<Evenement> evenementByUser(@PathVariable String username) {
 		return evenementService.findByUser(userService.getUser(username));
 	}
-	
+
 	@GetMapping(value = "/evenements/{username}")
 	public List<Evenement> evenementsInvite(@PathVariable String username) {
 		Utilisateur utilisateur = userService.getUser(username);
 		return evenementService.getAllEvenementInvite(utilisateur.getId());
 	}
-	
+
 	@PostMapping(value = "/creationEvenement")
 	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) {
 		String tableau[] = evenementCreation.getLoginsInvite().split(",");
 		Evenement evenement = new Evenement();
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
 		for (String username : tableau) {
+			System.err.println("maillllllll");
 			if (userService.getUser(username) == null) {
-		        pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
-		        matcher = pattern.matcher(username);
-		        while(matcher.find()){
+				pattern = Pattern.compile(
+						"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+				matcher = pattern.matcher(username);
+				while (matcher.find()) {
+					System.err.println("on envoieeee");
 		        	SimpleMailMessage message = new SimpleMailMessage();
 		        	message.setTo("le.minhtri230999@gmail.com");
 		        	message.setFrom(userService.getUser(userDetails.getUsername()).getUsername());
 		        	message.setSubject(userService.getUser(userDetails.getUsername()).getUsername() + " vous invite à " + evenementCreation.getLibelle());
 		        	message.setText("Veuillez créer un compte et répondre à l'invitation : http://localhost:8080/registration");
-		        	this.emailSender.send(message);
-		        }
-			}else {
+		        	emailSender.send(message);
+//					MailjetClient client;
+//					MailjetRequest request;
+//					MailjetResponse response;
+//					client = new MailjetClient("0764aa6cdca1fde7faa45248bfd420af",
+//							"a44e4993b1de0b119f8b271316a00e7e", new ClientOptions("v3.1"));
+//					request = new MailjetRequest(Emailv31.resource).property(Emailv31.MESSAGES,
+//							new JSONArray().put(new JSONObject()
+//									.put(Emailv31.Message.FROM,
+//											new JSONObject().put("Email", "le.minhtri230999@gmail.com").put("Name",
+//													"Lets"))
+//									.put(Emailv31.Message.TO,
+//											new JSONArray().put(new JSONObject()
+//													.put("Email", "le.minhtri230999@gmail.com").put("Name", "Lets")))
+//									.put(Emailv31.Message.SUBJECT, "Greetings from Mailjet.")
+//									.put(Emailv31.Message.TEXTPART, "My first Mailjet email")
+//									.put(Emailv31.Message.HTMLPART,
+//											"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!")
+//									.put(Emailv31.Message.CUSTOMID, "AppGettingStartedTest")));
+//					try {
+//						response = client.post(request);
+//						System.out.println(response.getStatus());
+//						System.out.println(response.getData());
+//					} catch (MailjetException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					} catch (MailjetSocketTimeoutException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+
+				}
+			} else {
 				evenement.getMapInvité().put(userService.getUser(username).getId(), 0);
 			}
 		}
-		Lieu lieu = new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(), evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement());
+		Lieu lieu = new Lieu(evenementCreation.getLibelleLieu(), evenementCreation.getNumRue(),
+				evenementCreation.getNomRue(), evenementCreation.getNomVille(), evenementCreation.getDepartement());
 		evenement.setLieu(lieu);
 
 		evenement.setUtilisateurAdmin(userService.getUser(userDetails.getUsername()));
@@ -107,27 +150,30 @@ public class BlogController {
 
 	@PostMapping(value = "/l_evenement/changerDisponibilite/{evenementId}/{username}")
 	public void changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
-        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Optional<Evenement> evenement = evenementService.getEvenement(evenementId);
-        if(evenement.isPresent()) {
-        	evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(), disponibilite.getDisponibilite());
-        	evenementService.insert(evenement.get());
-        }
+		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		Optional<Evenement> evenement = evenementService.getEvenement(evenementId);
+		if (evenement.isPresent()) {
+			evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(),
+					disponibilite.getDisponibilite());
+			evenementService.insert(evenement.get());
+		}
 	}
-	
-    @GetMapping(value = "/evenement/invites/{evenementId}")
-    public Map<String, Integer> getInvites(@PathVariable Long evenementId){
-    	Map<String, Integer> map = new HashMap<>();
-    	if(evenementService.getEvenement(evenementId).isPresent()) {
-    		for (Long invite : evenementService.getEvenement(evenementId).get().getMapInvité().keySet()) {
-    			if(userService.getUser(invite).isPresent()) {
-    				map.put(userService.getUser(invite).get().getUsername(), evenementService.getEvenement(evenementId).get().getMapInvité().get(invite));
-    			}
-    		}
-    		return map;
-    	}else {
+
+	@GetMapping(value = "/evenement/invites/{evenementId}")
+	public Map<String, Integer> getInvites(@PathVariable Long evenementId) {
+		Map<String, Integer> map = new HashMap<>();
+		if (evenementService.getEvenement(evenementId).isPresent()) {
+			for (Long invite : evenementService.getEvenement(evenementId).get().getMapInvité().keySet()) {
+				if (userService.getUser(invite).isPresent()) {
+					map.put(userService.getUser(invite).get().getUsername(),
+							evenementService.getEvenement(evenementId).get().getMapInvité().get(invite));
+				}
+			}
+			return map;
+		} else {
 			throw new RuntimeException();
 		}
-    }
-    
+	}
+
 }
