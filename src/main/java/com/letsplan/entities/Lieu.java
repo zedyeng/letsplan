@@ -24,9 +24,6 @@ public class Lieu {
 
 	private int departement;
 
-//    @ManyToOne(targetEntity = Evenement.class)
-//    private Evenement post;
-
 	public Lieu() {
 	}
 

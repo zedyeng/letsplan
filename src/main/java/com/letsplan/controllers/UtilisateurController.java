@@ -3,7 +3,7 @@ package com.letsplan.controllers;
 import com.letsplan.entities.Role;
 import com.letsplan.entities.Utilisateur;
 import com.letsplan.exception.UsernameExistantException;
-import com.letsplan.pojos.UserRegistration;
+import com.letsplan.modele.UserRegistration;
 import com.letsplan.service.UtilisateurService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +26,13 @@ public class UtilisateurController {
     private TokenStore tokenStore;
 
 
-    //a rendre mvc
     @PostMapping(value = "/register")
     @ExceptionHandler(value = UsernameExistantException.class)
     public String register(@RequestBody UserRegistration userRegistration){
         if(utilisateurService.getUser(userRegistration.getUsername()) != null) {
         	throw new UsernameExistantException();
-//        	return "Error this username already exists";
         }
 
-        //Checking for non alphanumerical characters in the username.
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9]");
         if(pattern.matcher(userRegistration.getUsername()).find())
             return "No special characters are allowed in the username";

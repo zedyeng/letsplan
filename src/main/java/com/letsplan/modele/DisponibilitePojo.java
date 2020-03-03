@@ -1,4 +1,4 @@
-package com.letsplan.pojos;
+package com.letsplan.modele;
 
 public class DisponibilitePojo {
 

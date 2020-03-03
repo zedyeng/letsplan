@@ -15,47 +15,25 @@
 							<h3>{{evenement.title}}</h3>
 							<h6>Cree par : {{evenement.utilisateurAdmin.username}}</h6>
 							<p>{{evenement.duree}}</p>
-							<!-- <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span> -->
-							<!-- <span th:text="${#dates.format(evenement.duree, 'yyyy/MM/dd HH:mm')}"></span> -->
-
-							<!-- <span th:text="${evenement.duree == null ? '' : #dates.format(evenement.duree, 'dd MMM yyyy HH:mm')}"></span>-->
-                            <!-- <td th:text="${evenement.duree == null ? 'sssss' : evenement.duree}"/> -->
-
 							<p>{{evenement.lieu.libelle}}</p>
 							<hr />
 
 
-							<li v-for="(value, key) in invites">{{ key }}: {{ value }} 
+						<li v-for="(value, key) in invites">{{ key }}: {{ value }}
 
-								 <span v-if="username == key" >
-									 <button v-on:click="changerDisponibilite(value)">gggggg</button> 
-									<h1>ouioiiii</h1>
-								</span>
-								<span v-else>
-									<h3>ffffffff</h3>
-								</span> 
-									
+							<span v-if="username == key">
+								<button v-on:click="changerDisponibilite(value)">{{ value }}</button>
+							</span>
+							<span v-else>
+							</span>
+
 							</h3>
 						</li>
-							</li>
+						</li>
 
 						</li>
 					</ul>
 
-					<!-- <div class="comments">
-                    <h2>Comments</h2>
-                    <ul>
-                        <li v-for="comment in comments">
-                            <h6>Posted by : <b>{{comment.creator.username}}</b></h6>
-                            <p>{{comment.text}}</p>
-                        </li>
-                    </ul>
-                </div> -->
-					<!-- <div v-if="isLoggedIn()">
-                    <label for="comment">Add a Comment</label>
-                    <textarea v-model="commentText" class="u-full-width" placeholder="Comment.." id="comment"></textarea>
-                    <input class="u-full-width button-primary" type="submit" v-on:click="doComment" value="Submit" />
-                </div> -->
 				</div>
 			</div>
 		</div>
@@ -66,7 +44,7 @@
 <script>
 	var app = new Vue({
 		el: '#root',
-		data: { evenement: null, invites: null, username:null , dispoFutur:null, evenementId:null},
+		data: { evenement: null, invites: null, username: null, dispoFutur: null, evenementId: null },
 		created() {
 			this.getUsername();
 			this.fetchEvenement();
@@ -78,36 +56,36 @@
 					this.evenement = response.data;
 				}.bind(this));
 			},
-			getUsername(){
-                axios.get("/getUsername?access_token=" + getCookie("access_token")).then(function (response) {
-                    this.username = response.data;
-				}.bind(this))			
+			getUsername() {
+				axios.get("/getUsername?access_token=" + getCookie("access_token")).then(function (response) {
+					this.username = response.data;
+				}.bind(this))
 			},
 			isLoggedIn() {
 				return window.Event.isLoggedIn;
 			},
-			changerDisponibilite(disponibiliteActuelle){
-				if (disponibiliteActuelle){
+			changerDisponibilite(disponibiliteActuelle) {
+				if (disponibiliteActuelle) {
 					this.dispoFutur = 0;
-				}else{
+				} else {
 					this.dispoFutur = 1;
 				}
-                axios({
-                    method: 'post',
-                    url: 'changerDisponibilite/' + this.getEvenementId()+ "/" + this.username + '?access_token=' + getCookie("access_token"),
-                    data: { disponibilite: this.dispoFutur }
-                }).then(function (response) {
+				axios({
+					method: 'post',
+					url: 'changerDisponibilite/' + this.getEvenementId() + "/" + this.username + '?access_token=' + getCookie("access_token"),
+					data: { disponibilite: this.dispoFutur }
+				}).then(function (response) {
 					this.fetchInvites();
 				}.bind(this));
 			},
-			fetchInvites(){
-			    axios.get("/evenement/invites/" + this.getEvenementId()).then(function(response){
-			        this.invites = response.data;
-			    }.bind(this));
+			fetchInvites() {
+				axios.get("/evenement/invites/" + this.getEvenementId()).then(function (response) {
+					this.invites = response.data;
+				}.bind(this));
 			},
 			getEvenementId() {
 				var splitted = window.location.href.split('/');
-				this.evenementId =splitted[splitted.length - 1];
+				this.evenementId = splitted[splitted.length - 1];
 				return splitted[splitted.length - 1];
 			}
 		}

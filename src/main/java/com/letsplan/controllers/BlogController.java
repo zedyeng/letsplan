@@ -4,9 +4,9 @@ import com.letsplan.config.CustomUserDetails;
 import com.letsplan.entities.Evenement;
 import com.letsplan.entities.Lieu;
 import com.letsplan.entities.Utilisateur;
-import com.letsplan.pojos.DisponibilitePojo;
-import com.letsplan.pojos.EvenementCreation;
-import com.letsplan.pojos.UserRegistration;
+import com.letsplan.modele.DisponibilitePojo;
+import com.letsplan.modele.EvenementCreation;
+import com.letsplan.modele.UserRegistration;
 import com.letsplan.service.EvenementService;
 import com.letsplan.service.LieuService;
 import com.letsplan.service.UtilisateurService;
@@ -50,8 +50,6 @@ public class BlogController {
     private static Pattern pattern;
     private static Matcher matcher;
 
-//    @Autowired
-//    private TokenStore tokenStore;
 	
 	@GetMapping(value = "/evenements")
 	public List<Evenement> evenements() {
@@ -81,8 +79,6 @@ public class BlogController {
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		for (String username : tableau) {
 			if (userService.getUser(username) == null) {
-				System.err.println("dans if");
-				System.err.println("***************");
 		        pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
 		        matcher = pattern.matcher(username);
 		        while(matcher.find()){
@@ -110,15 +106,13 @@ public class BlogController {
 	}
 
 	@PostMapping(value = "/l_evenement/changerDisponibilite/{evenementId}/{username}")
-	public String changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
+	public void changerDisponibilite(@RequestBody DisponibilitePojo disponibilite, @PathVariable Long evenementId) {
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Evenement> evenement = evenementService.getEvenement(evenementId);
         if(evenement.isPresent()) {
         	evenement.get().getMapInvité().replace(userService.getUser(userDetails.getUsername()).getId(), disponibilite.getDisponibilite());
         	evenementService.insert(evenement.get());
-        	return "ca a marchééééé";
         }
-        return "fini";
 	}
 	
     @GetMapping(value = "/evenement/invites/{evenementId}")

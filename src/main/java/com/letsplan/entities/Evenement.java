@@ -24,7 +24,6 @@ public class Evenement {
 	private Utilisateur utilisateurAdmin;
 
 	@ElementCollection
-//	@MapKeyColumn(name = "evenement_map_invites")
 	private Map<Long, Integer> mapInvites = new HashMap<Long, Integer>();
 
 	public Evenement() {

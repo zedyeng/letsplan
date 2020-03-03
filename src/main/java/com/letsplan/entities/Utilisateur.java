@@ -35,7 +35,6 @@ public class Utilisateur {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
-//		this.disponibilite = disponibilite;
 		this.password = password;
 		this.roles = roles;
 	}
