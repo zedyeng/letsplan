@@ -81,7 +81,7 @@ public class BlogController {
 	}
 
 	@PostMapping(value = "/creationEvenement")
-	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) {
+	public String creationEvenement(@RequestBody EvenementCreation evenementCreation) throws MailjetException, MailjetSocketTimeoutException {
 		String tableau[] = evenementCreation.getLoginsInvite().split(",");
 		Evenement evenement = new Evenement();
 		CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -93,42 +93,23 @@ public class BlogController {
 						"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
 				matcher = pattern.matcher(username);
 				while (matcher.find()) {
-					System.err.println("on envoieeee");
-		        	SimpleMailMessage message = new SimpleMailMessage();
-		        	message.setTo("le.minhtri230999@gmail.com");
-		        	message.setFrom(userService.getUser(userDetails.getUsername()).getUsername());
-		        	message.setSubject(userService.getUser(userDetails.getUsername()).getUsername() + " vous invite à " + evenementCreation.getLibelle());
-		        	message.setText("Veuillez créer un compte et répondre à l'invitation : http://localhost:8080/registration");
-		        	emailSender.send(message);
-//					MailjetClient client;
-//					MailjetRequest request;
-//					MailjetResponse response;
-//					client = new MailjetClient("0764aa6cdca1fde7faa45248bfd420af",
-//							"a44e4993b1de0b119f8b271316a00e7e", new ClientOptions("v3.1"));
-//					request = new MailjetRequest(Emailv31.resource).property(Emailv31.MESSAGES,
-//							new JSONArray().put(new JSONObject()
-//									.put(Emailv31.Message.FROM,
-//											new JSONObject().put("Email", "le.minhtri230999@gmail.com").put("Name",
-//													"Lets"))
-//									.put(Emailv31.Message.TO,
-//											new JSONArray().put(new JSONObject()
-//													.put("Email", "le.minhtri230999@gmail.com").put("Name", "Lets")))
-//									.put(Emailv31.Message.SUBJECT, "Greetings from Mailjet.")
-//									.put(Emailv31.Message.TEXTPART, "My first Mailjet email")
-//									.put(Emailv31.Message.HTMLPART,
-//											"<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!")
-//									.put(Emailv31.Message.CUSTOMID, "AppGettingStartedTest")));
-//					try {
-//						response = client.post(request);
-//						System.out.println(response.getStatus());
-//						System.out.println(response.getData());
-//					} catch (MailjetException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					} catch (MailjetSocketTimeoutException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+					MailjetClient client;
+					MailjetRequest request;
+					MailjetResponse response;
+					client = new MailjetClient("0764aa6cdca1fde7faa45248bfd420af", "a44e4993b1de0b119f8b271316a00e7e",
+							new ClientOptions("v3.1"));
+					request = new MailjetRequest(Emailv31.resource).property(Emailv31.MESSAGES,
+							new JSONArray().put(new JSONObject()
+									.put(Emailv31.Message.FROM,
+											new JSONObject().put("Email", "letsplanmiage@gmail.com").put("Name", "Me"))
+									.put(Emailv31.Message.TO,
+											new JSONArray().put(new JSONObject().put("Email", username)
+													.put("Name", "You")))
+									.put(Emailv31.Message.SUBJECT, userService.getUser(userDetails.getUsername()).getUsername() + " vous invite à " + evenementCreation.getLibelle() + "!")
+									.put(Emailv31.Message.TEXTPART, "Greetings from Mailjet!")
+									.put(Emailv31.Message.HTMLPART,
+											"<h3>Veuillez créer un compte et répondre à l'invitation : <a href=\"http://localhost:8080/registration/\">Let's Plan</a>!</h3>")));
+					response = client.post(request);
 
 				}
 			} else {
