@@ -1,60 +1,86 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list dense>
+        <v-list-item v-for="link in links" :key="link.id" link>
+          <v-list-item-action>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ link.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-app-bar app clipped-left :color="mainColor" flat dense>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-icon class="mx-4">fab fa-youtube</v-icon>
+      <v-toolbar-title class="mr-12 align-center">
+        <span class="title mainName">{{ mainName }}</span>
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <Home />
     </v-content>
+
+    <v-footer app>
+      <span class="px-4">&copy; {{ new Date().getFullYear() }} - {{ mainName }}</span>
+    </v-footer>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Home from "./components/Home";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    HelloWorld,
+    Home
   },
 
   data: () => ({
-    //
-  }),
+    mainName: "Let's Plan",
+    mainColor: "#66C39F",
+    drawer: null,
+    links: [
+      {
+        icon: "mdi-home",
+        href: "skusku",
+        text: "Home"
+      },
+      {
+        icon: "mdi-trending-up",
+        href: "skusku",
+        text: "Most Popular"
+      },
+      {
+        icon: "mdi-thumb-up",
+        href: "skusku",
+        text: "Recommendation"
+      },
+      {
+        icon: "mdi-twitter",
+        href: "https://www.twitter.com",
+        text: "Twitter"
+      },
+      {
+        icon: "mdi-heart",
+        href: "booooma",
+        text: "Donate"
+      }
+    ]
+  })
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Satisfy");
+
+.mainName {
+  font-family: "Satisfy", cursive;
+  color: #515151;
+}
+</style>
