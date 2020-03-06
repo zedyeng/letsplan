@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.letsplan</groupId>
 	<artifactId>letsplan</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>                   
 	<name>letsplan</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -80,6 +80,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>letsplan</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

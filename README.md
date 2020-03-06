@@ -12,7 +12,7 @@
 ```bash
 docker-compose up
 ```
-> À présent, ouvrez votre navigateur favoris et tapez dans la bar d'URL `localhost:8080*` 🚀
+> À présent, ouvrez votre navigateur favoris et tapez dans la bar d'URL `localhost` 🚀
 > `CTRL + C` pour arrêter l'application
 
 ## Informations générales 📦
