@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/header :: header('Register')" />
+
+<body>
+    <div id="root">
+        <div th:replace="fragments/nav :: nav"></div>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <h4 id="loginHeader">Registration</h4>
+                    <div class="six columns align-center">
+                        <label for="username">Username</label>
+                        <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername"
+                            id="username" />
+                        <label for="password">Password</label>
+                        <input v-model="password" class="u-full-width" type="password" id="password" />
+                        <label for="passwordConfirm">Confirm password</label>
+                        <input v-model="passwordConfirm" class="u-full-width" type="password" id="passwordConfirm" />
+                        <label for="username">Mail</label>
+                        <input v-model="mail" class="u-full-width" type="text" placeholder="yourMail" id="mail" />
+                        <label for="nom">Nom</label>
+                        <input v-model="nom" class="u-full-width" type="text" placeholder="yourNom" id="nom" />
+                        <label for="prenom">Prenom</label>
+                        <input v-model="prenom" class="u-full-width" type="text" placeholder="yourPrenom" id="prenom" />
+                        <input class="u-full-width button-primary" type="submit" v-on:click="register" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        mounted() {
+            Event.$on('logged-in', function () {
+                window.location.replace("/");
+            })
+        },
+        data: {
+            username: '',
+            password: '',
+            passwordConfirm: '',
+            mail: '',
+            nom: '',
+            prenom: ''
+        },
+        methods: {
+            register() {
+                if (this.password !== this.passwordConfirm) {
+                    alert("Passwords do not match");
+                    return;
+                }
+                axios({
+                    method: 'post',
+                    url: 'register',
+                    data: { username: this.username, password: this.password, passwordConfirmation: this.passwordConfirm, mail: this.mail, nom: this.nom, prenom: this.prenom }
+                }).then(function (response) {
+                    document.location.replace("/");
+                });
+            }
+        }
+    });
+</script>
+
+</html>

@@ -1,65 +1,82 @@
-**Let's Plan :**
+**Let’s Plan, Plus d’excuses pour lâcher un plan.**
+======
 
+## Utilisation 💻
 
+#### Prérequis
 
-Informations générales :
-Let’s Plan, Plus d’excuses pour lâcher un plan.
-Résumé : 
-L’objectif serait de créer une application qui prendrait les disponibilités d’un groupe de personnes (ami/collègues ou autre) afin d’organiser et avoir le jour et l’heure qui plait au plus grand nombre pour une sortie ou un dîner entre on pourrait aussi ajouter des fonctionnalités permettant de prendre en compte la contrainte des gens comme l’heure de départ et l’heure d’arrivée
+> [`docker 🐳`](https://docs.docker.com/install/) et [`docker-compose 🐙`](https://docs.docker.com/compose/install/) installés au préalable.
 
-Technologies utilisées :
-Le site web sera divisé en 2 parties, un back end et un front end. La partie back-end sera codé en java, et le front-end en angularJs.
+#### Lancement
 
-Liste des fonctionnalités :
+```bash
+docker-compose up
+```
+> À présent, ouvrez votre navigateur favoris et tapez dans la bar d'URL `localhost` 🚀
+> `CTRL + C` pour arrêter l'application
 
-LOT 1:
+## Informations générales 📦
 
-Se connecter et créer un compte 
-Vérifier disponibilitées d’un groupe
-Mettre un type à l'événement
-Ajouter des amis à son événement
-Moyen de transport
-Choisir la durée estimée de l’évènement
+#### Résumé
 
+> L’objectif serait de créer une application qui prendrait les disponibilités d’un groupe de personnes (ami/collègues ou autre) afin d’organiser et avoir le jour et l’heure qui plait au plus grand nombre pour une sortie ou un dîner entre on pourrait aussi ajouter des fonctionnalités permettant de prendre en compte la contrainte des gens comme l’heure de départ et l’heure d’arrivée
 
-| Scénario 1 | Scénario 2 |
-| ------ | ------ |
-|Se connecter et créer un compte  | Se connecter et créer un compte  |
-|Ajouter des amis à son événement |Mettre un type à l'événement | 
-|Vérifier disponibilitées d’un groupe |Ajouter des amis à son événement | 
-|Mettre un type à l'événement  |Vérifier disponibilitées d’un groupe | 
+#### Technologies utilisées
+
+> Le site web sera divisé en 2 parties, un back end et un front end. La partie back-end sera codé en java, et le front-end en vueJs.
+
+## Liste des fonctionnalités ⚙️
+
+#### LOT 1
+
+- Se connecter et créer un compte 
+- Vérifier disponibilitées d’un groupe
+- Mettre un type à l'événement
+- Ajouter des amis à son événement
+- Moyen de transport
+- Choisir la durée estimée de l’évènement
+
+| Scénario 1                             | Scénario 2                             |
+| -------------------------------------- | -------------------------------------- |
+|Se connecter et créer un compte         | Se connecter et créer un compte        |
+|Ajouter des amis à son événement        |Mettre un type à l'événement            | 
+|Vérifier disponibilitées d’un groupe    |Ajouter des amis à son événement        | 
+|Mettre un type à l'événement            |Vérifier disponibilitées d’un groupe    | 
 |Choisir la durée estimée de l’évènement |Choisir la durée estimée de l’évènement | 
-|Moyen de transport |Moyen de transport | 
- 
-   
+|Moyen de transport                      |Moyen de transport                      | 
 
+#### LOT 2
 
-LOT 2 :
+- Possibilité de renseigner ses contraintes temporelles (heure d’arrivée et départ)
+- Changement de l’apparence en fonction de l'événement (thème prédéfini)
+- Envoie de mail récapitulatif + rappel par mail
+- Partenariats avec bars et restaurants avec réservation prise en compte
+- Mettre le lieu sur une carte 
+- Mettre un lien qui renvoie vers l’itinéraire google maps
+- Possibilité de proposer une nouvelle horaire 
 
- Possibilité de renseigner ses contraintes temporelles (heure d’arrivée et départ)
- Changement de l’apparence en fonction de l'événement (thème prédéfini)
- Envoie de mail récapitulatif + rappel par mail
- Partenariats avec bars et restaurants avec réservation prise en compte
- Mettre le lieu sur une carte 
- Mettre un lien qui renvoie vers l’itinéraire google maps
- possibilité de proposer une nouvelle horaire 
+#### LOT 3
 
-LOT 3 :
+- Se connecter et créer un compte avec Google et FB
+- Gérer plusieurs fuseaux horaires
 
-Se connecter et créer un compte avec Google et FB
-Gérer plusieurs fuseaux horaires
+#### API
 
-API :
-Google Maps (MAPBOX) (ou envoyer un lien qui renvoi vers google maps)
-Connexion Google et FB
+- Google Maps (MAPBOX) (ou envoyer un lien qui renvoi vers google maps)
+- Connexion Google et FB
 
-Auteurs :
-AOURI Zackaria
-LAMHANDY Hajar
-LE Minh Tri
-SHANMUGALINGAM Kasthuri
-ZEROUALI Soraya
+## Auteurs ✏️
 
-Crédits : 
-Doodle 
+> AOURI Zackaria
+> LAMHANDY Hajar
+> LE Minh Tri
+> SHANMUGALINGAM Kasthuri
+> ZEROUALI Soraya
 
+## Crédits 📸
+
+- [`Doodle`](https://doodle.com/fr/)
+- [`Node.js`](https://nodejs.org/)
+- [`Vuejs`](https://vuejs.org/)
+- [`Vuetify`](https://vuetifyjs.com/en/)
+- [`Axios`](https://github.com/axios/axios)

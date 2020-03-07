@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/header :: header('A post')" />
+
+<body>
+	<div id="root">
+		<div th:replace="fragments/nav :: nav"></div>
+		<div class="container">
+			<div class="row">
+				<div class="twelve columns">
+					<h1>{{evenement.title}}</h1>
+					<ul>
+						<li v-if="evenement">
+							<h3>{{evenement.title}}</h3>
+							<h6>Cree par : {{evenement.utilisateurAdmin.username}}</h6>
+							<p>{{evenement.duree}}</p>
+							<p>{{evenement.lieu.libelle}}</p>
+							<hr />
+
+
+						<li v-for="(value, key) in invites">{{ key }}: {{ value }}
+
+							<span v-if="username == key">
+								<button v-on:click="changerDisponibilite(value)">{{ value }}</button>
+							</span>
+							<span v-else>
+							</span>
+
+							</h3>
+						</li>
+						</li>
+
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+
+<script>
+	var app = new Vue({
+		el: '#root',
+		data: { evenement: null, invites: null, username: null, dispoFutur: null, evenementId: null },
+		created() {
+			this.getUsername();
+			this.fetchEvenement();
+			this.fetchInvites();
+		},
+		methods: {
+			fetchEvenement() {
+				axios.get("/evenement/" + this.getEvenementId()).then(function (response) {
+					this.evenement = response.data;
+				}.bind(this));
+			},
+			getUsername() {
+				axios.get("/getUsername?access_token=" + getCookie("access_token")).then(function (response) {
+					this.username = response.data;
+				}.bind(this))
+			},
+			isLoggedIn() {
+				return window.Event.isLoggedIn;
+			},
+			changerDisponibilite(disponibiliteActuelle) {
+				if (disponibiliteActuelle) {
+					this.dispoFutur = 0;
+				} else {
+					this.dispoFutur = 1;
+				}
+				axios({
+					method: 'post',
+					url: 'changerDisponibilite/' + this.getEvenementId() + "/" + this.username + '?access_token=' + getCookie("access_token"),
+					data: { disponibilite: this.dispoFutur }
+				}).then(function (response) {
+					this.fetchInvites();
+				}.bind(this));
+			},
+			fetchInvites() {
+				axios.get("/evenement/invites/" + this.getEvenementId()).then(function (response) {
+					this.invites = response.data;
+				}.bind(this));
+			},
+			getEvenementId() {
+				var splitted = window.location.href.split('/');
+				this.evenementId = splitted[splitted.length - 1];
+				return splitted[splitted.length - 1];
+			}
+		}
+
+	});
+</script>
+
+</html>

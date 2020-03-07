@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/header :: header('Evenement')" />
+
+<body>
+    <div id="root">
+        <div th:replace="fragments/nav :: nav"></div>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <h4 id="loginHeader">Evenement</h4>
+                    <div class="six columns align-center">
+
+                        <label for="libelle">Libelle de l'evenement</label>
+                        <input v-model="libelle" class="u-full-width" type="text" placeholder="Libelle de l'evenement" id="libelle" />
+
+                        <label for="nature">Nature de l'evenement</label>
+                        <input v-model="nature" class="u-full-width" type="text" placeholder="Nature de l'evenement" id="nature" />
+
+                        <label for="date">Date</label>
+                        <input v-model="date" class="u-full-width" type="text" placeholder="Date" id="date" />
+
+                        <label for="duree">Duree</label>
+                        <input v-model="duree" class="u-full-width" type="text" placeholder="Duree" id="duree" />
+
+                        <label for="libelleLieu">Libelle du lieu</label>
+                        <input v-model="libelleLieu" class="u-full-width" type="text" placeholder="Libelle du lieu" id="libelleLieu" />
+
+                        <label for="numRue">Numero de la rue</label>
+                        <input v-model="numRue" class="u-full-width" type="text" placeholder="Numero de la rue" id="numRue" />
+                       
+                        <label for="nomRue">Nom de la rue</label>
+                        <input v-model="nomRue" class="u-full-width" type="text" placeholder="Nom de la rue" id="nomRue" />
+
+                        <label for="nomVille">Nom de la ville</label>
+                        <input v-model="nomVille" class="u-full-width" type="text" placeholder="Nom de la ville" id="nomVille" />
+
+                        <label for="departement">Departement de la ville</label>
+                        <input v-model="departement" class="u-full-width" type="text" placeholder="Departement" id="departement" />
+                        
+                        <label for="loginsInvite">Logins des invites</label>
+                        <input v-model="loginsInvite" class="u-full-width" type="text" placeholder="Jean,Jacques,Pierre" id="loginsInvite" />
+                        
+                        <input class="u-full-width button-primary" type="submit" v-on:click="creationEvenement" value="Submit" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+<script>
+    var app = new Vue({
+        el: '#root',
+        data: {
+            libelle: '',
+            nature: '',
+            date: '',
+            duree: '',
+            libelleLieu: '',
+            numRue: '',
+            nomRue: '',
+            nomVille: '',
+            departement: '',
+            loginsInvite: ''
+        },
+        methods: {
+            creationEvenement() {
+                axios({
+                    method: 'post',
+                    url: 'creationEvenement?access_token=' + getCookie("access_token"),
+                    data: { libelle: this.libelle, nature: this.nature, date: this.date, duree: this.duree, libelleLieu: this.libelleLieu, numRue: this.numRue, nomRue: this.nomRue, nomVille: this.nomVille, departement: this.departement, loginsInvite: this.loginsInvite }
+                }).then(function (response) {
+                    document.location.replace("/");
+                });
+            }
+        }
+    });
+</script>
+
+</html>

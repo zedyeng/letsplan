@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+    backend:
+        container_name: backend
+        build: ./backend
+        volumes:
+            - ./backend:/app
+            - /app/target
+        ports:
+            - '8080:8080'
+        command: mvn spring-boot:run
+    frontend:
+        container_name: frontend
+        build: ./frontend
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        ports:
+            - '80:3000'
+        environment:
+            HOST: 0.0.0.0
+        depends_on:
+            - backend
+        command: npm run dev
