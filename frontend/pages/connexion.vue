@@ -38,12 +38,9 @@
 </template>
 
 <script>
+import { HTTP } from "../http-common";
 import { validationMixin } from "vuelidate";
-import {
-  required,
-  maxLength,
-  minLength
-} from "vuelidate/lib/validators";
+import { required, maxLength, minLength } from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
@@ -63,9 +60,7 @@ export default {
       const errors = [];
       if (!this.$v.password.$dirty) return errors;
       !this.$v.password.minLength &&
-        errors.push(
-          "Voitre mot de passe a au moins 6 caractères."
-        );
+        errors.push("Voitre mot de passe a au moins 6 caractères.");
       !this.$v.password.required &&
         errors.push("Veuillez saisir votre mot de passe.");
       return errors;
@@ -74,7 +69,9 @@ export default {
       const errors = [];
       if (!this.$v.username.$dirty) return errors;
       !this.$v.username.maxLength &&
-        errors.push("Votre nom d'utilisateur ne peut pas dépasser 20 caractères.");
+        errors.push(
+          "Votre nom d'utilisateur ne peut pas dépasser 20 caractères."
+        );
       !this.$v.username.required &&
         errors.push("Veuillez saisir votre nom d'utilisateur.");
       return errors;
@@ -84,6 +81,25 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
+      HTTP.post(
+        "oauth/token?grant_type=password&username=" +
+          this.username +
+          "&password=" +
+          this.password,
+        {
+          auth: {
+            username: "my-trusted-client",
+            password: "secret"
+          },
+          // crossdomain: true
+        }
+      )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     clear() {
       this.$v.$reset();

@@ -1,5 +1,9 @@
 <template>
-  <v-container class="bg" fluid fill-height>
+  <v-container
+    fluid
+    fill-height
+    :style="'background-image: url(' + require('~/assets/background.png') + '); background-size: cover; background-repeat: no-repeat;'"
+  >
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <v-card align="center" class="elevation-12">
@@ -10,11 +14,3 @@
     </v-row>
   </v-container>
 </template>
-
-<style>
-.bg {
-  background-image: url("../assets/background.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-</style>

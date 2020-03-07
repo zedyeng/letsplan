@@ -16,18 +16,18 @@
     <v-app-bar app clipped-left color="primary" flat dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title" color="secondary">{{ mainName }}</span>
+        <span class="title" color="secondary" style="font-family: Satisfy !important;">{{ mainName }}</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if="!connected" class="ml-2" text to="/inscription" nuxt>
+      <v-btn class="ml-2" text to="/inscription" nuxt>
         <span class="mr-2">Inscription</span>
         <v-icon>mdi-account</v-icon>
       </v-btn>
-      <v-btn v-if="!connected" class="ml-2" text to="/connexion" nuxt>
+      <v-btn class="ml-2" text to="/connexion" nuxt>
         <span class="mr-2">Connexion</span>
         <v-icon>mdi-login</v-icon>
       </v-btn>
-      <v-btn v-if="connected" class="ml-2" text to="/deconnexion" nuxt>
+      <v-btn class="ml-2" text to="/deconnexion" nuxt>
         <span class="mr-2">Déconnexion</span>
         <v-icon>mdi-logout</v-icon>
       </v-btn>
@@ -38,7 +38,7 @@
     </v-content>
 
     <v-footer app>
-      <span class="px-4">&copy; {{ new Date().getFullYear() }} - {{ mainName }}</span>
+      <span class="px-4" >&copy; {{ new Date().getFullYear() }} - {{ mainName }}</span>
     </v-footer>
   </v-app>
 </template>
@@ -49,7 +49,6 @@ export default {
   //   source: String
   // },
   data: () => ({
-    connected: false,
     mainName: process.env.mainName,
     drawer: null,
     links: [

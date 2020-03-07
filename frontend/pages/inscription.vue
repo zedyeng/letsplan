@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { HTTP } from "../http-common";
 import { validationMixin } from "vuelidate";
 import {
   required,
@@ -166,6 +167,20 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
+      HTTP.post("register", {
+          username: this.username,
+          password: this.password,
+          passwordConfirmation: this.confirmation,
+          mail: this.email,
+          nom: this.lastname,
+          prenom: this.firstname
+        })
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
     },
     clear() {
       this.$v.$reset();
