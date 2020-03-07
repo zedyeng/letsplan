@@ -6,15 +6,27 @@
           <v-card-text>
             <form>
               <v-text-field
-                v-model="name"
-                :counter="20"
-                :error-messages="nameErrors"
+                prepend-icon="mdi-account-edit"
+                v-model="lastname"
+                :counter="30"
+                :error-messages="lastnameErrors"
                 label="Nom"
                 required
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
+                @input="$v.lastname.$touch()"
+                @blur="$v.lastname.$touch()"
               ></v-text-field>
               <v-text-field
+                prepend-icon="mdi-account-edit"
+                v-model="firstname"
+                :counter="20"
+                :error-messages="firstnameErrors"
+                label="Prénom"
+                required
+                @input="$v.firstname.$touch()"
+                @blur="$v.firstname.$touch()"
+              ></v-text-field>
+              <v-text-field
+                prepend-icon="mdi-email"
                 v-model="email"
                 :error-messages="emailErrors"
                 label="Email"
@@ -23,42 +35,35 @@
                 @blur="$v.email.$touch()"
               ></v-text-field>
               <v-text-field
-                v-model="phone"
-                :error-messages="phoneErrors"
-                label="Téléphone"
+                prepend-icon="mdi-account"
+                v-model="username"
+                :counter="20"
+                :error-messages="usernameErrors"
+                label="Nom d'utilisateur"
                 required
-                @input="$v.phone.$touch()"
-                @blur="$v.phone.$touch()"
+                @input="$v.username.$touch()"
+                @blur="$v.username.$touch()"
               ></v-text-field>
               <v-text-field
-                v-model="subject"
-                :counter="30"
-                :error-messages="subjectErrors"
-                label="Objet"
+                prepend-icon="mdi-lock"
+                type="password"
+                v-model="password"
+                :error-messages="passwordErrors"
+                label="Mot de passe"
                 required
-                @input="$v.subject.$touch()"
-                @blur="$v.subject.$touch()"
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()"
               ></v-text-field>
-              <v-textarea
-                v-model="message"
-                :counter="1000"
-                :error-messages="messageErrors"
-                label="Message"
+              <v-text-field
+                prepend-icon="mdi-lock"
+                type="password"
+                v-model="confirmation"
+                :error-messages="confirmationErrors"
+                label="Confirmation mot de passe"
                 required
-                @input="$v.message.$touch()"
-                @blur="$v.message.$touch()"
-              ></v-textarea>
-              <v-checkbox
-                v-model="checkbox"
-                :error-messages="checkboxErrors"
-                required
-                @change="$v.checkbox.$touch()"
-                @blur="$v.checkbox.$touch()"
-              >
-                <template
-                  v-slot:label
-                >J'ai lu et accepte la politique de confidentialité RGPD de la Let's Plan.</template>
-              </v-checkbox>
+                @input="$v.confirmation.$touch()"
+                @blur="$v.confirmation.$touch()"
+              ></v-text-field>
             </form>
           </v-card-text>
           <v-card-actions>
@@ -74,64 +79,61 @@
 
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  email,
+  sameAs,
+  minLength
+} from "vuelidate/lib/validators";
 
 export default {
   mixins: [validationMixin],
 
   validations: {
-    name: { required, maxLength: maxLength(20) },
+    lastname: { required, maxLength: maxLength(30) },
+    firstname: { required, maxLength: maxLength(20) },
     email: { required, email },
-    phone: { required }, // TODO
-    subject: { required, maxLength: maxLength(30) },
-    message: { required, maxLength: maxLength(1000) },
-    checkbox: {
-      checked(val) {
-        return val;
-      }
-    }
+    username: { required, maxLength: maxLength(20) },
+    password: { required, minLength: minLength(6) },
+    confirmation: { sameAsPassword: sameAs("password") }
   },
 
   data: () => ({
-    name: "",
+    lastname: "",
+    firstname: "",
     email: "",
-    phone: "",
-    subject: "",
-    message: "",
-    checkbox: false
+    username: "",
+    password: "",
+    confirmation: ""
   }),
 
   computed: {
-    checkboxErrors() {
+    confirmationErrors() {
       const errors = [];
-      if (!this.$v.checkbox.$dirty) return errors;
-      !this.$v.checkbox.checked &&
-        errors.push("Veuillez accepter pour continuer."); //TODO
+      if (!this.$v.confirmation.$dirty) return errors;
+      !this.$v.confirmation.sameAsPassword &&
+        errors.push("Les mot de passe doivent être identiques.");
       return errors;
     },
-    messageErrors() {
+    passwordErrors() {
       const errors = [];
-      if (!this.$v.message.$dirty) return errors;
-      !this.$v.message.maxLength &&
-        errors.push("Le message ne doit pas dépasser 1000 caractères.");
-      !this.$v.message.required && errors.push("Veuillez saisir un message.");
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.minLength &&
+        errors.push(
+          "Le mot de passe doit avoir une longueur d'au moins 6 caractères."
+        );
+      !this.$v.password.required &&
+        errors.push("Veuillez saisir un mot de passe.");
       return errors;
     },
-    subjectErrors() {
+    usernameErrors() {
       const errors = [];
-      if (!this.$v.subject.$dirty) return errors;
-      !this.$v.subject.maxLength &&
-        errors.push("L'objet ne doit pas dépasser 30 caractères.");
-      !this.$v.subject.required && errors.push("Veuillez saisir un objet.");
-      return errors;
-    },
-    phoneErrors() {
-      const errors = [];
-      if (!this.$v.phone.$dirty) return errors;
-      //!this.$v.phone.maxLength &&
-      //  errors.push("L'objet ne doit pas dépasser 30 caractères."); //TODO
-      !this.$v.phone.required &&
-        errors.push("Veuillez saisir un numéro de téléphone.");
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.maxLength &&
+        errors.push("Le nom d'utilisateur ne doit pas dépasser 20 caractères.");
+      !this.$v.username.required &&
+        errors.push("Veuillez saisir un nom d'utilisateur.");
       return errors;
     },
     emailErrors() {
@@ -143,12 +145,20 @@ export default {
         errors.push("Veuillez saisir une adresse email.");
       return errors;
     },
-    nameErrors() {
+    firstnameErrors() {
       const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength &&
-        errors.push("Le nom ne doit pas dépasser 20 caractères.");
-      !this.$v.name.required && errors.push("Veuillez saisir un nom.");
+      if (!this.$v.firstname.$dirty) return errors;
+      !this.$v.firstname.maxLength &&
+        errors.push("Le prénom ne doit pas dépasser 20 caractères.");
+      !this.$v.firstname.required && errors.push("Veuillez saisir un prénom.");
+      return errors;
+    },
+    lastnameErrors() {
+      const errors = [];
+      if (!this.$v.lastname.$dirty) return errors;
+      !this.$v.lastname.maxLength &&
+        errors.push("Le nom ne doit pas dépasser 30 caractères.");
+      !this.$v.lastname.required && errors.push("Veuillez saisir un nom.");
       return errors;
     }
   },
@@ -159,12 +169,12 @@ export default {
     },
     clear() {
       this.$v.$reset();
-      this.name = "";
+      this.lastname = "";
+      this.firstname = "";
       this.email = "";
-      this.phone = "";
-      this.subject = "";
-      this.message = "";
-      this.checkbox = false;
+      this.username = "";
+      this.password = "";
+      this.confirmation = "";
     }
   }
 };

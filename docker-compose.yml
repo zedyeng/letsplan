@@ -5,8 +5,10 @@ services:
         build: ./backend
         volumes:
             - ./backend:/app
+            - /app/target
         ports:
             - '8080:8080'
+        command: mvn clean spring-boot:run
     frontend:
         container_name: frontend
         build: ./frontend
@@ -17,6 +19,6 @@ services:
             - '80:3000'
         environment:
             HOST: 0.0.0.0
-        # depends_on:
-        #     - backend
+        depends_on:
+            - backend
         command: npm run dev
