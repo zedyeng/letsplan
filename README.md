@@ -4,12 +4,13 @@
 ## Utilisation 💻
 
 #### Prérequis
-
 > [`docker 🐳`](https://docs.docker.com/install/) et [`docker-compose 🐙`](https://docs.docker.com/compose/install/) installés au préalable.
 
 #### Lancement
 
 ```bash
+git clone https://github.com/zedyeng/letsplan.git
+cd letsplan
 docker-compose up
 ```
 > À présent, ouvrez votre navigateur favoris et tapez dans la bar d'URL `localhost` 🚀
@@ -67,10 +68,10 @@ docker-compose up
 
 ## Auteurs ✏️
 
-> AOURI Zackaria
-> LAMHANDY Hajar
-> LE Minh Tri
-> SHANMUGALINGAM Kasthuri
+> AOURI Zackaria,
+> LAMHANDY Hajar,
+> LE Minh Tri,
+> SHANMUGALINGAM Kasthuri,
 > ZEROUALI Soraya
 
 ## Crédits 📸

@@ -37,9 +37,6 @@
       <nuxt />
     </v-content>
 
-    <v-footer app>
-      <span class="px-4" >&copy; {{ new Date().getFullYear() }} - {{ mainName }}</span>
-    </v-footer>
   </v-app>
 </template>
 
