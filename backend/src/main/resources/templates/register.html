@@ -13,17 +13,17 @@
                     <div class="six columns align-center">
                         <label for="username">Username</label>
                         <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername"
-                            id="username" />
+                            id="username" /required>
                         <label for="password">Password</label>
-                        <input v-model="password" class="u-full-width" type="password" id="password" />
+                        <input v-model="password" class="u-full-width" type="password" id="password" required/>
                         <label for="passwordConfirm">Confirm password</label>
-                        <input v-model="passwordConfirm" class="u-full-width" type="password" id="passwordConfirm" />
+                        <input v-model="passwordConfirm" class="u-full-width" type="password" id="passwordConfirm" required/>
                         <label for="username">Mail</label>
-                        <input v-model="mail" class="u-full-width" type="text" placeholder="yourMail" id="mail" />
+                        <input v-model="mail" class="u-full-width" type="text" placeholder="yourMail" id="mail" required />
                         <label for="nom">Nom</label>
-                        <input v-model="nom" class="u-full-width" type="text" placeholder="yourNom" id="nom" />
+                        <input v-model="nom" class="u-full-width" type="text" placeholder="yourNom" id="nom" required/>
                         <label for="prenom">Prenom</label>
-                        <input v-model="prenom" class="u-full-width" type="text" placeholder="yourPrenom" id="prenom" />
+                        <input v-model="prenom" class="u-full-width" type="text" placeholder="yourPrenom" id="prenom" required/>
                         <input class="u-full-width button-primary" type="submit" v-on:click="register" value="Submit" />
                     </div>
                 </div>
@@ -37,7 +37,7 @@
         el: '#root',
         mounted() {
             Event.$on('logged-in', function () {
-                window.location.replace("/");
+                window.location.replace("/home");
             })
         },
         data: {
@@ -50,16 +50,16 @@
         },
         methods: {
             register() {
-                if (this.password !== this.passwordConfirm) {
-                    alert("Passwords do not match");
-                    return;
-                }
                 axios({
                     method: 'post',
                     url: 'register',
                     data: { username: this.username, password: this.password, passwordConfirmation: this.passwordConfirm, mail: this.mail, nom: this.nom, prenom: this.prenom }
                 }).then(function (response) {
-                    document.location.replace("/");
+                    if(response.data.resultat){
+                        document.location.replace("/home");
+                    }else{
+                        alert(response.data.libelleErreur);
+                    }
                 });
             }
         }

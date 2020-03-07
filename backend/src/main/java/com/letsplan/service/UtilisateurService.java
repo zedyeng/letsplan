@@ -32,6 +32,9 @@ public class UtilisateurService {
         return utilisateurRepository.findById(id);
     }
 
+    public Utilisateur getUserMail(String mail){
+        return utilisateurRepository.findByMail(mail);
+    }    
     public Utilisateur getUser(String username){
         return utilisateurRepository.findByUsername(username);
     }

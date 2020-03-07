@@ -42,7 +42,7 @@ Vue.component('login-component',{
                     window.Event.isLoggedIn = false;
                     this.logged_in_msg  = "Successfully logged out";
                     delete_cookie("access_token")
-                    document.location.replace("/");
+                    document.location.replace("/login");
                 }.bind(this))
         },
         isLoggedIn(){

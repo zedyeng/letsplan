@@ -20,7 +20,7 @@ public class Utilisateur {
 
 	private String mail;
 
-	private boolean disponibilite;
+//	private boolean disponibilite;
 
 	@JsonIgnore
 	private String password;
@@ -91,13 +91,13 @@ public class Utilisateur {
 		this.mail = mail;
 	}
 
-	public boolean isDisponibilite() {
-		return disponibilite;
-	}
-
-	public void setDisponibilite(boolean disponibilite) {
-		this.disponibilite = disponibilite;
-	}
+//	public boolean isDisponibilite() {
+//		return disponibilite;
+//	}
+//
+//	public void setDisponibilite(boolean disponibilite) {
+//		this.disponibilite = disponibilite;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;

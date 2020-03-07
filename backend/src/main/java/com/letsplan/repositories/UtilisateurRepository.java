@@ -11,5 +11,5 @@ import com.letsplan.entities.Utilisateur;
  */
 public interface UtilisateurRepository extends JpaRepository<Utilisateur,Long> {
     Utilisateur findByUsername(String username);
-
+    Utilisateur findByMail(String mail);
 }

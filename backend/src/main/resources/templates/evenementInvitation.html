@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head th:replace="fragments/header :: header('A post')" />
+<head th:replace="fragments/header :: header(evenement.title)" />
 
 <body>
 	<div id="root">
@@ -14,15 +14,19 @@
 						<li v-if="evenement">
 							<h3>{{evenement.title}}</h3>
 							<h6>Cree par : {{evenement.utilisateurAdmin.username}}</h6>
-							<p>{{evenement.duree}}</p>
-							<p>{{evenement.lieu.libelle}}</p>
+							<p>{{evenement.nature}}</p>
+							<p>Rendez vous le : {{evenement.date}}</p>
+							<p>A : {{evenement.lieu.libelle}}</p>
+							<p>Moyen de transport : {{evenement.transport}}</p>
 							<hr />
 
-
-						<li v-for="(value, key) in invites">{{ key }}: {{ value }}
+						<li v-for="(value, key) in invites">{{ key }}  <span v-if="value == '0'"> ne participe pas</span>
+																	   <span v-if="value == '1'"> participe</span>
 
 							<span v-if="username == key">
-								<button v-on:click="changerDisponibilite(value)">{{ value }}</button>
+								<button v-on:click="changerDisponibilite(value)"><span v-if="value == '0'"> ne participe pas</span>
+																				 <span v-if="value == '1'"> participe</span>
+								</button>
 							</span>
 							<span v-else>
 							</span>

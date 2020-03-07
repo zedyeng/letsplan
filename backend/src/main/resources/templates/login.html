@@ -9,8 +9,8 @@
             <div class="twelve columns">
                 <h4 id="loginHeader">Login</h4>
                 <div class="six columns align-center">
-                    <label for="username">Username</label>
-                    <input v-model="username" class="u-full-width" type="text" placeholder="yourUsername" id="username"/>
+                    <label for="mail">Username</label>
+                    <input v-model="username" class="u-full-width" type="text" placeholder="Votre Login" id="username"/>
                     <label for="password">Password</label>
                     <input v-model="password" class="u-full-width" type="password" id="password"/>
                     <input class="u-full-width button-primary" type="submit" v-on:click="login" value="Submit" />
@@ -26,7 +26,7 @@
         el: '#root',
         mounted() {
             Event.$on('logged-in',function(){
-                window.location.replace("/");
+                window.location.replace("/home");
             })
         },
         data:{
@@ -47,7 +47,9 @@
                     data:params
                 }).then(function(response){
                     set_cookie("access_token",response.data.access_token);
-                    document.location.replace("/");
+                    document.location.replace("/home");
+                }).catch(function(error){
+                    alert("Mauvaise combinaison du username et mot de passe !");
                 });
             }
         }

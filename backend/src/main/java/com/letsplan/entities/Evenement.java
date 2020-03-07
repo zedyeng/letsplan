@@ -15,13 +15,16 @@ public class Evenement {
 
 	private String libelle;
 	private String type;
-	private Date duree;
+	private Date date;
+	private int duree;
 
 	@OneToOne(targetEntity = Lieu.class)
 	private Lieu lieu;
 
 	@ManyToOne
 	private Utilisateur utilisateurAdmin;
+	
+	private String transport;
 
 	@ElementCollection
 	private Map<Long, Integer> mapInvites = new HashMap<Long, Integer>();
@@ -53,11 +56,11 @@ public class Evenement {
 		this.type = type;
 	}
 
-	public Date getDuree() {
+	public int getDuree() {
 		return duree;
 	}
 
-	public void setDuree(Date duree) {
+	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 
@@ -73,16 +76,24 @@ public class Evenement {
 		return mapInvites;
 	}
 
+	
+	public String getTransport() {
+		return transport;
+	}
+	public void setTransport(String transport) {
+		this.transport = transport;
+	}
+	
 	public void setMapInvité(Map<Long, Integer> mapInvité) {
 		this.mapInvites = mapInvité;
 	}
 
-	public Date getDateCreated() {
-		return duree;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.duree = dateCreated;
+	public void setDate(Date dateCreated) {
+		this.date = dateCreated;
 	}
 
 	public Utilisateur getUtilisateurAdmin() {

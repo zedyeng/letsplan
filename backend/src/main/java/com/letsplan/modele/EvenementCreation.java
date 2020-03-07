@@ -11,19 +11,20 @@ public class EvenementCreation {
 	private String libelle;
 	private String nature;
 	private Date date;
-	private Date duree;
+	private int duree;
 	private String libelleLieu;
 	private int numRue;
 	private String nomRue;
 	private String nomVille;
 	private int departement;
+	private String transport;
 	private String loginsInvite;
 	
 	public EvenementCreation() {
 	}
 
-	public EvenementCreation(String libelle, String nature, Date date, Date duree, String libelleLieu, int numRue,
-			String nomRue, String nomVille, int departement, String loginsInvite) {
+	public EvenementCreation(String libelle, String nature, Date date, int duree, String libelleLieu, int numRue,
+			String nomRue, String nomVille, int departement, String transport, String loginsInvite) {
 		this.libelle = libelle;
 		this.nature = nature;
 		this.date = date;
@@ -33,6 +34,7 @@ public class EvenementCreation {
 		this.nomRue = nomRue;
 		this.nomVille = nomVille;
 		this.departement = departement;
+		this.transport = transport;
 		this.loginsInvite = loginsInvite;
 	}
 
@@ -60,11 +62,11 @@ public class EvenementCreation {
 		this.date = date;
 	}
 
-	public Date getDuree() {
+	public int getDuree() {
 		return duree;
 	}
 
-	public void setDuree(Date duree) {
+	public void setDuree(int duree) {
 		this.duree = duree;
 	}
 
@@ -108,6 +110,14 @@ public class EvenementCreation {
 		this.departement = departement;
 	}
 
+	public String getTransport() {
+		return transport;
+	}
+	
+	public void setTransport(String transport) {
+		this.transport = transport;
+	}
+	
 	public String getLoginsInvite() {
 		return loginsInvite;
 	}

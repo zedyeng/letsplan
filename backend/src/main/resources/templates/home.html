@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/header :: header('Blog index')" />
+
+<body>
+    <div id="root">
+        <div th:replace="fragments/nav :: nav"></div>
+        <div class="container">
+            <div class="row">
+                <div class="twelve columns">
+                    <h1>Evenements</h1>
+                    <ul>
+                        <li v-for="evenement in evenementsInvite">
+                            <h3><a :href="getLink(evenement)">{{evenement.libelle}}</a></h3>
+                            <h6>Created by : {{evenement.utilisateurAdmin.username}}</h6>
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<div th:replace="fragments/footer :: foot"></div>
+
+<script>
+    var app = new Vue({
+        el: '#root',
+        data: { evenementsInvite: [] },
+        mounted() {
+            this.fetchEvenementsInvite();
+        },
+        methods: {
+            fetchEvenementsInvite() {
+                axios.get("/getUsername?access_token=" + getCookie("access_token")).then(function (response) {
+                    username = response.data;
+                    axios.get("/evenements/" + username).then(function (response) {
+                        this.evenementsInvite = response.data;
+                    }.bind(this));
+                }.bind(this))
+
+            }
+            ,
+            getLink(evenement) {
+                return '/l_evenement/' + evenement.id;
+            }
+        }
+
+    });
+</script>
+
+</html>
