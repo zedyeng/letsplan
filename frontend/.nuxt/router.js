@@ -4,6 +4,7 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _1825c9cf = () => interopDefault(import('../pages/connexion.vue' /* webpackChunkName: "pages/connexion" */))
+const _536edaa9 = () => interopDefault(import('../pages/creer-un-evenement.vue' /* webpackChunkName: "pages/creer-un-evenement" */))
 const _61fc536e = () => interopDefault(import('../pages/deconnexion.vue' /* webpackChunkName: "pages/deconnexion" */))
 const _b9522522 = () => interopDefault(import('../pages/evenement.vue' /* webpackChunkName: "pages/evenement" */))
 const _699b3cd8 = () => interopDefault(import('../pages/evenements.vue' /* webpackChunkName: "pages/evenements" */))
@@ -30,6 +31,10 @@ export const routerOptions = {
     path: "/connexion",
     component: _1825c9cf,
     name: "connexion"
+  }, {
+    path: "/creer-un-evenement",
+    component: _536edaa9,
+    name: "creer-un-evenement"
   }, {
     path: "/deconnexion",
     component: _61fc536e,

@@ -61,6 +61,11 @@ export default {
         icon: "mdi-calendar",
         href: "/evenements",
         text: "Évenements"
+      },
+      {
+        icon: "mdi-calendar-plus",
+        href: "/creer-un-evenement",
+        text: "Créer un évenement"
       }
     ]
   })

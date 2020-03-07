@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { HTTP } from "../http-common";
+import axios from "axios";
 import { validationMixin } from "vuelidate";
 import { required, maxLength, minLength } from "vuelidate/lib/validators";
 
@@ -81,19 +81,19 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      HTTP.post(
-        "oauth/token?grant_type=password&username=" +
-          this.username +
-          "&password=" +
-          this.password,
-        {
-          auth: {
-            username: "my-trusted-client",
-            password: "secret"
-          },
-          // crossdomain: true
-        }
-      )
+      axios
+        .post(
+          "http://localhost:8080/oauth/token?grant_type=password&username=" +
+            this.username +
+            "&password=" +
+            this.password,
+          {
+            auth: {
+              username: "my-trusted-client",
+              password: "secret"
+            }
+          }
+        )
         .then(response => {
           console.log(response);
         })

@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { HTTP } from "../http-common";
+import axios from "axios";
 import { validationMixin } from "vuelidate";
 import {
   required,
@@ -167,20 +167,25 @@ export default {
   methods: {
     submit() {
       this.$v.$touch();
-      HTTP.post("register", {
+      axios
+        .post("http://localhost:8080/register", {
           username: this.username,
           password: this.password,
           passwordConfirmation: this.confirmation,
           mail: this.email,
           nom: this.lastname,
-          prenom: this.firstname
+          prenom: this.firstname,
+          auth: {
+            username: "my-trusted-client",
+            password: "secret"
+          }
         })
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     clear() {
       this.$v.$reset();
