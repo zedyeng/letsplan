@@ -14,25 +14,37 @@ Dans tous les formulaires, les alertes préviennent de l’utilisateur de l’er
 
 > Pour s’inscrire, un utilisateur doit également remplir un formulaire avec plusieurs champs : un username, un mot de passe, la confirmation du mot de passe, un mail valide, un nom et un prénom. Tous ces champs doivent être remplis. Le mot de passe et la confirmation du mot de passe doivent être identique, sinon une alerte est lancé. Le mail entré est contrôlé par une expression régulière. S’il n’est pas valide, une alerte est lancé. 
 
-## Liste des fonctionnalités ⚙️
+Ensuite, quand un utilisateur se connecte, il peut cliquer sur le bouton Événement. L’utilisateur doit remplir un formulaire : un libelle, la nature, une date (format AAAA-MM-JJ), une durée (un chiffre), le libellé du lieu, le numéro de rue, le nom de la rue, le nom et département de la ville, ainsi que le moyen de transport. Finalement, les logins des invités doivent être remplis(Jacques,Jean,le.minhtri230999@gmail.com). 
+Si un invité n’a pas de compte, alors le mail de la personne peut être saisie, afin qu’un mail lui soit envoyé lui demandant de s’inscrire et de répondre à l'événement. Enfin, les invités qui ont un compte reçoivent un mail leur prévenant de l’invitation. 
+Ensuite, les champs départements et numéros doivent être des numéros, sinon une alerte est lancé.
 
-#### LOT 1
 
-- Se connecter et créer un compte 
-- Vérifier disponibilitées d’un groupe
-- Mettre un type à l'événement
-- Ajouter des amis à son événement
-- Moyen de transport
-- Choisir la durée estimée de l’évènement
+De plus, après qu’un utilisateur soit connecté, la liste de tous les événements dont il est invité est affiché. S’il clique sur un événement, un récapitulatif est affiché, avec tout les invité et leurs décisions. Enfin, l’utilisateur connecté peut changer sa décision, c’est à dire s’il vient ou pas à l'événement. Sa décision est mise à jour directement.  
 
-| Scénario 1                             | Scénario 2                             |
-| -------------------------------------- | -------------------------------------- |
-|Se connecter et créer un compte         | Se connecter et créer un compte        |
-|Ajouter des amis à son événement        |Mettre un type à l'événement            | 
-|Vérifier disponibilitées d’un groupe    |Ajouter des amis à son événement        | 
-|Mettre un type à l'événement            |Vérifier disponibilitées d’un groupe    | 
-|Choisir la durée estimée de l’évènement |Choisir la durée estimée de l’évènement | 
-|Moyen de transport                      |Moyen de transport                      | 
+#### Dictionnaire de données
+
+| Nom                                    | Description                            | Format                                 | Commentaire                             |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+|id                                      | Id de l’utilisateur                    | Long                                   | Généré automatiquement                  |
+|username                                | Username de l’utilisateur              | String                                 |                                         |
+|nom                                     | Nom de l’utilisateur                   | String                                 |                                         |
+|prénom                                  | Prénom de l’utilisateur                | String                                 |                                         |
+|mail                                    | Mail de l’utilisateur                  | String                                 |                                         |
+|password                                | Mot de passe de l’utilisateur          | String                                 |                                         |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+|id                                      | Id de l’evenement                      | Long                                   | Généré automatiquement                  |
+|libelle                                 | Libelle  de l’evenement                | String                                 |                                         |
+|type                                    | Type de l’evenement                    | String                                 |                                         |
+|date                                    | Date de l’evenement                    | Date                                   |                                         |
+|duree                                   | Duree de l’evenement                   | int                                    |                                         |
+|transport                               | Moyen de transport de l’evenement      | String                                 |                                         |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+|id                                      | Id du lieu                             | Long                                   | Généré automatiquement                  |
+|libelle                                 | Libelle du lieu                        | String                                 |                                         |
+|numRue                                  | Numéro de la rue                       | int                                    |                                         |
+|rue                                     | Nom de la rue                          | String                                 |                                         |
+|ville                                   | Nom de la ville                        | int                                    |                                         |
+|departement                             | Département du lieu                    | int                                    |                                         |
 
 #### LOT 2
 
