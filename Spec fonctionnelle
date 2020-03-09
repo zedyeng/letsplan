@@ -1,3 +1,77 @@
+**Spécifications fonctionnelles**
+======
+
+#### Cadrage du projet
+
+L’application Let’s Plan s’inscrit dans un contexte d’organisation d'événements par ses utilisateurs qu’ils soient professionnels ou particuliers. Il s’agit dans notre application de proposer une solution qui soit efficace et simple d’utilisation de manière à ce que la navigation de nos utilisateurs soit la plus agréable possible.
+
+## Fonctionnalités
+
+> Quand un utilisateur arrive sur le site, il a 2 boutons : un bouton pour se connecter, et un pour s’inscrire. 
+Pour se connecter, un utilisateur doit remplir un formulaire, avec 2 champs : son username et son mot de passe.
+
+Dans tous les formulaires, les alertes préviennent de l’utilisateur de l’erreur. 
+
+> Pour s’inscrire, un utilisateur doit également remplir un formulaire avec plusieurs champs : un username, un mot de passe, la confirmation du mot de passe, un mail valide, un nom et un prénom. Tous ces champs doivent être remplis. Le mot de passe et la confirmation du mot de passe doivent être identique, sinon une alerte est lancé. Le mail entré est contrôlé par une expression régulière. S’il n’est pas valide, une alerte est lancé. 
+
+## Liste des fonctionnalités ⚙️
+
+#### LOT 1
+
+- Se connecter et créer un compte 
+- Vérifier disponibilitées d’un groupe
+- Mettre un type à l'événement
+- Ajouter des amis à son événement
+- Moyen de transport
+- Choisir la durée estimée de l’évènement
+
+| Scénario 1                             | Scénario 2                             |
+| -------------------------------------- | -------------------------------------- |
+|Se connecter et créer un compte         | Se connecter et créer un compte        |
+|Ajouter des amis à son événement        |Mettre un type à l'événement            | 
+|Vérifier disponibilitées d’un groupe    |Ajouter des amis à son événement        | 
+|Mettre un type à l'événement            |Vérifier disponibilitées d’un groupe    | 
+|Choisir la durée estimée de l’évènement |Choisir la durée estimée de l’évènement | 
+|Moyen de transport                      |Moyen de transport                      | 
+
+#### LOT 2
+
+- Possibilité de renseigner ses contraintes temporelles (heure d’arrivée et départ)
+- Changement de l’apparence en fonction de l'événement (thème prédéfini)
+- Envoie de mail récapitulatif + rappel par mail
+- Partenariats avec bars et restaurants avec réservation prise en compte
+- Mettre le lieu sur une carte 
+- Mettre un lien qui renvoie vers l’itinéraire google maps
+- Possibilité de proposer une nouvelle horaire 
+
+#### LOT 3
+
+- Se connecter et créer un compte avec Google et FB
+- Gérer plusieurs fuseaux horaires
+
+#### API
+
+- Google Maps (MAPBOX) (ou envoyer un lien qui renvoi vers google maps)
+- Connexion Google et FB
+
+## Auteurs ✏️
+
+> AOURI Zackaria,
+> LAMHANDY Hajar,
+> LE Minh Tri,
+> SHANMUGALINGAM Kasthuri,
+> ZEROUALI Soraya
+
+## Crédits 📸
+
+- [`Doodle`](https://doodle.com/fr/)
+- [`Node.js`](https://nodejs.org/)
+- [`Vuejs`](https://vuejs.org/)
+- [`Vuetify`](https://vuetifyjs.com/en/)
+- [`Axios`](https://github.com/axios/axios)
+
+
+
 Spécifications fonctionnelles
 Hajar LAMHANDY, Minh Tri LE, Kasthuri SHANMUGALINGAM, Zackaria AOURI, Soraya ZEROUALI
 
