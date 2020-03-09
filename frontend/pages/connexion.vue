@@ -3,6 +3,12 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="8" md="4">
         <v-card class="elevation-12">
+          <v-card-title
+            class="headline"
+            style="font-family: Abril Fatface !important;"
+            color="secondary"
+          >Connexion</v-card-title>
+          <v-divider class="mx-4"></v-divider>
           <v-card-text>
             <v-form>
               <v-text-field

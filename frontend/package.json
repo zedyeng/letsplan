@@ -12,6 +12,7 @@
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
     "nuxt": "^2.11.0",
+    "nuxtjs-mdi-font": "^1.0.2",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {

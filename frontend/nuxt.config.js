@@ -22,7 +22,8 @@ export default {
         ],
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Satisfy&display=swap' }
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Satisfy&display=swap' },
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap' }
         ]
     },
     /*
@@ -53,6 +54,7 @@ export default {
         '@nuxtjs/axios',
         // Doc: https://github.com/nuxt-community/dotenv-module
         '@nuxtjs/dotenv',
+        'nuxtjs-mdi-font',
     ],
     /*
     ** Axios module configuration

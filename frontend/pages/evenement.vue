@@ -2,7 +2,12 @@
   <v-container fluid fill-height>
     <v-card class="elevation-12 mx-auto" width="600">
       <v-list two-line subheader>
-        <v-subheader inset>{{ event.libelle }}</v-subheader>
+        <v-card-title
+            class="headline"
+            style="font-family: Abril Fatface !important;"
+            color="secondary"
+          >{{ event.libelle }}</v-card-title>
+          <v-divider class="mx-4"></v-divider>
 
         <v-list-item>
           <v-list-item-avatar>
@@ -16,9 +21,12 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-divider inset></v-divider>
-
-        <v-subheader inset>Invités</v-subheader>
+        <v-card-title
+            class="headline"
+            style="font-family: Abril Fatface !important;"
+            color="secondary"
+          >Invités</v-card-title>
+          <v-divider class="mx-4"></v-divider>
 
         <v-list-item v-for="invite in event.loginsInvite.split(',')" :key="invite">
 
@@ -40,14 +48,14 @@
 export default {
   data: () => ({
     event: {
-      libelle: "libelleeee evenement",
-      nature: "nature evenemenetttt",
+      libelle: "exemple de libellé",
+      nature: "nature de l'évenement",
       date: "2020-03-05",
       duree: "2020-03-05",
-      libelleLieu: "libelleeee lieueeuu",
+      libelleLieu: "Place des Vosges",
       numRue: "143",
-      nomRue: "avenue de ta sdvsdvgsfg",
-      nomVille: "pariiiisssss",
+      nomRue: "avenue de Francis",
+      nomVille: "Paris",
       departement: "75016",
       loginsInvite: "Jacques,hajar,minhtri3,le.tri2309@gmail.com"
     }

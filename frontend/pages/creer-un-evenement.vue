@@ -1,6 +1,12 @@
 <template>
   <v-container fluid fill-height>
-    <v-card class="elevation-12 mx-auto" width="600">
+    <v-card class="elevation-12 mx-auto mt-10 mb-10" width="600">
+      <v-card-title
+        class="headline"
+        style="font-family: Abril Fatface !important;"
+        color="secondary"
+      >Créer un évenement</v-card-title>
+      <v-divider class="mx-4"></v-divider>
       <v-card-text>
         <form>
           <v-text-field

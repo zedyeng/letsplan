@@ -2,7 +2,12 @@
   <v-container fluid fill-height>
     <v-card class="elevation-12 mx-auto" width="600">
       <v-list two-line subheader>
-        <v-subheader inset>Mes évenements</v-subheader>
+        <v-card-title
+            class="headline"
+            style="font-family: Abril Fatface !important;"
+            color="secondary"
+          >Mes évenements</v-card-title>
+          <v-divider class="mx-4"></v-divider>
 
         <v-list-item v-for="event in events" :key="event.id" @click :to="'/evenement?id=' + event.id" nuxt>
           <v-list-item-avatar>
@@ -16,9 +21,12 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-divider inset></v-divider>
-
-        <v-subheader inset>Mes invitations</v-subheader>
+        <v-card-title
+            class="headline"
+            style="font-family: Abril Fatface !important;"
+            color="secondary"
+          >Mes invitations</v-card-title>
+          <v-divider class="mx-4"></v-divider>
 
         <v-list-item v-for="invitaion in invitaions" :key="invitaion.id" @click :to="'/evenement?id=' + invitaion.id" nuxt>
           <v-list-item-avatar>
@@ -59,8 +67,8 @@ export default {
     invitaions: [
       {
         id: 4,
-        libelle: "Vacation itinerary",
-        nature: "oe magl",
+        libelle: "Vacation a la playa",
+        nature: "superbe vacances en famille",
         date: "Jan 20, 2014"
       }
     ]
