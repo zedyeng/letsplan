@@ -24,32 +24,32 @@ De plus, après qu’un utilisateur soit connecté, la liste de tous les événe
 
 #### Dictionnaire de données
 
-| Nom                                    | Description                            | Format                                 | Commentaire                             |
-| -------------------------------------- | --------------------------------- | --------------------------------- | -----------
-|id                                      | Id de l’utilisateur                    | Long                                   | Généré automatiquement                  |
-|username                                | Username de l’utilisateur              | String                                 |                                         |
-|nom                                     | Nom de l’utilisateur                   | String                                 |                                         |
-|prénom                                  | Prénom de l’utilisateur                | String                                 |                                         |
-|mail                                    | Mail de l’utilisateur                  | String                                 |                                         |
-|password                                | Mot de passe de l’utilisateur          | String                                 |                                         |
-| --------------------------------- | -------------------------------------- | --------------------------------- | -----------
-|id                                      | Id de l’evenement                      | Long                                   | Généré automatiquement                  |
-|libelle                                 | Libelle  de l’evenement                | String                                 |                                         |
-|type                                    | Type de l’evenement                    | String                                 |                                         |
-|date                                    | Date de l’evenement                    | Date                                   |                                         |
-|duree                                   | Duree de l’evenement                   | int                                    |                                         |
-|transport                               | Moyen de transport de l’evenement      | String                                 |                                         |
-| --------------------------------- | --------------------------------- | --------------------------------- | -----------
-|id                                      | Id du lieu                             | Long                                   | Généré automatiquement                  |
-|libelle                                 | Libelle du lieu                        | String                                 |                                         |
-|numRue                                  | Numéro de la rue                       | int                                    |                                         |
-|rue                                     | Nom de la rue                          | String                                 |                                         |
-|ville                                   | Nom de la ville                        | int                                    |                                         |
-|departement                             | Département du lieu                    | int                                    |                                         |
-
-
+| Nom                        | Description                            | Format                            | Commentaire             |
+| -------------------------- | -------------------------------------- | --------------------------------- | ----------------------- |
+|id                          | Id de l’utilisateur                    | Long                              | Généré automatiquement  |
+|username                    | Username de l’utilisateur              | String                            |                         |
+|nom                         | Nom de l’utilisateur                   | String                            |                         |
+|prénom                      | Prénom de l’utilisateur                | String                            |                         |
+|mail                        | Mail de l’utilisateur                  | String                            |                         |
+|password                    | Mot de passe de l’utilisateur          | String                            |                         |
+| -------------------------- | -------------------------------------- | --------------------------------- | ----------------------- |
+|id                          | Id de l’evenement                      | Long                              | Généré automatiquement  |
+|libelle                     | Libelle  de l’evenement                | String                            |                         |
+|type                        | Type de l’evenement                    | String                            |                         |
+|date                        | Date de l’evenement                    | Date                              |                         |
+|duree                       | Duree de l’evenement                   | int                               |                         |
+|transport                   | Moyen de transport de l’evenement      | String                            |                         |
+| -------------------------- | -------------------------------------- | --------------------------------- | ----------------------- |
+|id                          | Id du lieu                             | Long                              | Généré automatiquement  |
+|libelle                     | Libelle du lieu                        | String                            |                         |
+|numRue                      | Numéro de la rue                       | int                               |                         |
+|rue                         | Nom de la rue                          | String                            |                         |
+|ville                       | Nom de la ville                        | int                               |                         |
+|departement                 | Département du lieu                    | int                               |                         |
 
 Modèle de données
+
+
 USER STORY
 LOT 1 :
 ? Se connecter et créer un compte
