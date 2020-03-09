@@ -35,18 +35,18 @@ Inscription :
 |   6    |Entrer tous les champs correctement                           |Inscription à l’application et + connexion automatique | partiellement OK  |
 
 
-Créer un évènement :
+Mise en place d'un événement :
 
 | N°     | Action                                                       |Attendu                              |      Résultat       |
 | ------ | ------------------------------------------------------------ |-------------------------------------|---------------------|
-|   1    |Renseigner une nature de l’évènement                          |Nature de l’évènement                |   OK                |
+|   1    |Renseigner une nature de l’événement                          |Nature de l’événement                |   OK                |
 |   2    |Définir un créneau horaire                                    |Créneau défini                       |   KO                |
-|   3    |Ajouter les membres                                           |Membres ajoutés à l'évènement        |Partiellement   OK   |
+|   3    |Ajouter les membres                                           |Membres ajoutés à l'événement        |Partiellement   OK   |
 |   4    |Validation de la création                                     |Mail d’invitation envoyé aux membres |   OK                |
+|   5    |Supprimer un événement                                        |Suppression de l'événement           |   KO                |
 
 
-
-Supprimer un membre suite à son refus de participation à l’évènement :
+Supprimer un membre suite à son refus de participation à l’événement :
 
 | N°     | Action                                                       |Attendu                           |Résultat|
 | ------ | ------------------------------------------------------------ |----------------------------------|--------|
