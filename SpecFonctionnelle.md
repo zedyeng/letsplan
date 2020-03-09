@@ -50,6 +50,9 @@ De plus, après qu’un utilisateur soit connecté, la liste de tous les événe
 Modèle de données
 https://imgur.com/QB1olbE
 
+Diagramme de cas d'utilisation
+https://imgur.com/a/NMIEAtu
+
 
 USER STORY
 
