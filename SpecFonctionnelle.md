@@ -1,4 +1,4 @@
-** Spécifications fonctionnelles **
+**Spécifications fonctionnelles**
 ======
 
 #### Cadrage du projet
@@ -7,16 +7,17 @@ L’application Let’s Plan s’inscrit dans un contexte d’organisation d'év
 
 ## Fonctionnalités
 
-> Quand un utilisateur arrive sur le site, il a 2 boutons : un bouton pour se connecter, et un pour s’inscrire. 
+Quand un utilisateur arrive sur le site, il a 2 boutons : un bouton pour se connecter, et un pour s’inscrire. 
 Pour se connecter, un utilisateur doit remplir un formulaire, avec 2 champs : son username et son mot de passe.
 
 Dans tous les formulaires, les alertes préviennent de l’utilisateur de l’erreur. 
 
-> Pour s’inscrire, un utilisateur doit également remplir un formulaire avec plusieurs champs : un username, un mot de passe, la confirmation du mot de passe, un mail valide, un nom et un prénom. Tous ces champs doivent être remplis. Le mot de passe et la confirmation du mot de passe doivent être identique, sinon une alerte est lancé. Le mail entré est contrôlé par une expression régulière. S’il n’est pas valide, une alerte est lancé. 
+Pour s’inscrire, un utilisateur doit également remplir un formulaire avec plusieurs champs : un username, un mot de passe, la confirmation du mot de passe, un mail valide, un nom et un prénom. 
+> Tous ces champs doivent être remplis. Le mot de passe et la confirmation du mot de passe doivent être identique, sinon une alerte est lancé. Le mail entré est contrôlé par une expression régulière. S’il n’est pas valide, une alerte est lancé. 
 
 Ensuite, quand un utilisateur se connecte, il peut cliquer sur le bouton Événement. L’utilisateur doit remplir un formulaire : un libelle, la nature, une date (format AAAA-MM-JJ), une durée (un chiffre), le libellé du lieu, le numéro de rue, le nom de la rue, le nom et département de la ville, ainsi que le moyen de transport. Finalement, les logins des invités doivent être remplis(Jacques,Jean,le.minhtri230999@gmail.com). 
 Si un invité n’a pas de compte, alors le mail de la personne peut être saisie, afin qu’un mail lui soit envoyé lui demandant de s’inscrire et de répondre à l'événement. Enfin, les invités qui ont un compte reçoivent un mail leur prévenant de l’invitation. 
-Ensuite, les champs départements et numéros doivent être des numéros, sinon une alerte est lancé.
+> Les champs départements et numéros doivent être des numéros, sinon une alerte est lancé.
 
 
 De plus, après qu’un utilisateur soit connecté, la liste de tous les événements dont il est invité est affiché. S’il clique sur un événement, un récapitulatif est affiché, avec tout les invité et leurs décisions. Enfin, l’utilisateur connecté peut changer sa décision, c’est à dire s’il vient ou pas à l'événement. Sa décision est mise à jour directement.  
@@ -24,21 +25,21 @@ De plus, après qu’un utilisateur soit connecté, la liste de tous les événe
 #### Dictionnaire de données
 
 | Nom                                    | Description                            | Format                                 | Commentaire                             |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+| -------------------------------------- | --------------------------------- | --------------------------------- | -----------
 |id                                      | Id de l’utilisateur                    | Long                                   | Généré automatiquement                  |
 |username                                | Username de l’utilisateur              | String                                 |                                         |
 |nom                                     | Nom de l’utilisateur                   | String                                 |                                         |
 |prénom                                  | Prénom de l’utilisateur                | String                                 |                                         |
 |mail                                    | Mail de l’utilisateur                  | String                                 |                                         |
 |password                                | Mot de passe de l’utilisateur          | String                                 |                                         |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+| --------------------------------- | -------------------------------------- | --------------------------------- | -----------
 |id                                      | Id de l’evenement                      | Long                                   | Généré automatiquement                  |
 |libelle                                 | Libelle  de l’evenement                | String                                 |                                         |
 |type                                    | Type de l’evenement                    | String                                 |                                         |
 |date                                    | Date de l’evenement                    | Date                                   |                                         |
 |duree                                   | Duree de l’evenement                   | int                                    |                                         |
 |transport                               | Moyen de transport de l’evenement      | String                                 |                                         |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | --------------------------------------- |
+| --------------------------------- | --------------------------------- | --------------------------------- | -----------
 |id                                      | Id du lieu                             | Long                                   | Généré automatiquement                  |
 |libelle                                 | Libelle du lieu                        | String                                 |                                         |
 |numRue                                  | Numéro de la rue                       | int                                    |                                         |
@@ -48,12 +49,7 @@ De plus, après qu’un utilisateur soit connecté, la liste de tous les événe
 
 
 
-
-
-
 Modèle de données
-
-
 USER STORY
 LOT 1 :
 ? Se connecter et créer un compte
