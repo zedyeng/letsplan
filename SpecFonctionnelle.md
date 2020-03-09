@@ -52,6 +52,7 @@ https://imgur.com/QB1olbE
 
 
 USER STORY
+
 LOT 1 :
 > En tant qu’utilisateur de l’application
 > - Je veux pouvoir me connecter et me déconnecter de l’application
