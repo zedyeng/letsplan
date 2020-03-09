@@ -50,6 +50,6 @@ Supprimer un membre suite à son refus de participation à l’évènement :
 
 | N°     | Action                                                       |Attendu                           |Résultat|
 | ------ | ------------------------------------------------------------ |----------------------------------|--------|
-|   1    |Consulter réponse à l’invitation                              |Invitation refusée                |   OK   |
-|   2    |Retirer le membre de la liste des membres de l’évènement      |Membre grisé dans la liste        |   OK   |
-|   3    |Cliquer sur valider                                           |membre supprimé                   |   OK   |
+|   1    |Consulter réponse à l’invitation                              |Invitation refusée                |   KO   |
+|   2    |Retirer le membre de la liste des membres de l’évènement      |Membre grisé dans la liste        |   KO   |
+|   3    |Cliquer sur valider                                           |membre supprimé                   |   KO   |
