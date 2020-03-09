@@ -48,72 +48,80 @@ De plus, après qu’un utilisateur soit connecté, la liste de tous les événe
 |departement                 | Département du lieu                    | int                               |                         |
 
 Modèle de données
+https://imgur.com/QB1olbE
 
 
 USER STORY
 LOT 1 :
-? Se connecter et créer un compte
-? En tant qu ?’utilisateur de l’application
-? Je veux ?pouvoir me connecter et me déconnecter de l’application
-? Afin ?de préserver ma vie privée
-? ? Vérifier disponibilitées d’un groupe
-? En tant qu ?’utilisateur de l’application
-? Je veux ? vérifier les disponibilitées d’un groupe
-? Afin ? d’organiser une sortie entre amis
-? ? Choisir la durée estimée de l’évènement
-? En tant qu ?’utilisateur de l’application
-? Je veux ? choisir la durée estimée de l’évènement
-? Afin ?de pouvoir me synchroniser avec mes amis
-? ? Ajouter des amis à son événement
-? En tant qu ?’utilisateur de l’application
-? Je veux ? ajouter des amis à mon évènement
-? Afin ? d’organiser une sortie à plusieurs
-? ? Mettre un type à l'événement
-? En tant qu ?’utilisateur de l’application
-? Je veux ? mettre un type à un évènement
-? Afin ?d’en informer la nature pour le groupe d’amis
-? ? Moyen de transport
-? En tant qu ?’utilisateur de l’application
-? Je veux ?obtenir des informations sur la manière de me rendre sur le lieu de
+> Se connecter et créer un compte
+> - En tant qu’utilisateur de l’application
+> - Je veux pouvoir me connecter et me déconnecter de l’application
+> - Afin de préserver ma vie privée
+> - Vérifier disponibilitées d’un groupe
+
+> En tant qu’utilisateur de l’application
+> - Je veux vérifier les disponibilitées d’un groupe
+> - Afin d’organiser une sortie entre amis
+> - Choisir la durée estimée de l’évènement
+
+> En tant qu’utilisateur de l’application
+> - Je veux choisir la durée estimée de l’évènement
+> - Afin de pouvoir me synchroniser avec mes amis
+> - Ajouter des amis à son événement
+
+> En tant qu’utilisateur de l’application
+> - Je veux ajouter des amis à mon évènement
+> - Afin d’organiser une sortie à plusieurs
+> - Mettre un type à l'événement
+
+> En tant qu’utilisateur de l’application
+> - Je veux mettre un type à un évènement
+> - Afin d’en informer la nature pour le groupe d’amis
+> - Moyen de transport
+
+> En tant qu’utilisateur de l’application
+> - Je veux obtenir des informations sur la manière de me rendre sur le lieu de
 ma sortie
-? Afin ?de? ?me rendre plus facilement sur le lieu du rendez-vous et de pouvoir
+> - Afin de me rendre plus facilement sur le lieu du rendez-vous et de pouvoir
 choisir le moyen de transport le plus adapté
+
 LOT 2 :
-? Possibilité de renseigner ses contraintes temporelles (heure
-d’arrivée et départ) :
-? En tant ? qu’utilisateur de l’application
-? Je veux ? pouvoir renseigner les heures d’arrivée et de départ
-? Afin ?de trouver un horaire qui convient au mieux
-? ? Changement de l’apparence en fonction de l'événement (thème
+
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir renseigner les heures d’arrivée et de départ
+> - Afin de trouver un horaire qui convient au mieux
+> - Changement de l’apparence en fonction de l'événement (thème
 prédéfini)
 
-? En tant ? qu’utilisateur de l’application
-? Je veux ? pouvoir changer le thème de l’application
-? Afin ?que ce soit plus beau
-? ? Envoie de mail récapitulatif + rappel par mail
-? En tant ? qu’utilisateur de l’application
-? Je veux ? que l’application envoie des mails automatiquement
-? Afin ?de faire un récapitulatif et rappeler la veille de l’évènement
-? ? Partenariats avec bars et restaurants avec réservation prise en
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir changer le thème de l’application
+> - Afin que ce soit plus beau
+> En tant qu’utilisateur de l’application
+> - Je veux que l’application envoie des mails automatiquement
+> - Afin de faire un récapitulatif et rappeler la veille de l’évènement
+> - Partenariats avec bars et restaurants avec réservation prise en
 compte
-? En tant qu ?’utilisateur de l’application
-? Je veux ? pouvoir réserver dans des restaurants et bar grâce à des
+
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir réserver dans des restaurants et bar grâce à des
 partenariats
-? Afin ? d’avoir de mettre en avant les partenaires de l’application
-? ? Mettre le lieu sur une carte
-? En tant ? qu’utilisateur de l’application
-? Je veux ?pouvoir mettre le lieu de rencontre sur une carte
-? Afin ? d’avoir une meilleur vision de sa localisation
-? ? Mettre un lien qui renvoie vers l’itinéraire Google Maps
-? En tant ? qu’utilisateur de l’application
-? Je veux ? pouvoir mettre un lien qui renvoie vers l’itinéraire Google Maps
-? Afin ?de pouvoir voir toutes les informations sur le trajet
-? Possibilité de proposer une nouvelle horaire
-? En tant qu ?’utilisateur de l’application
-? Je veux ? proposer une nouvelle horaire
-? Afin ?de décaler le rdv
+> - Afin d’avoir de mettre en avant les partenaires de l’application
+> - Mettre le lieu sur une carte
+
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir mettre le lieu de rencontre sur une carte
+> - Afin d’avoir une meilleur vision de sa localisation
+> - Mettre un lien qui renvoie vers l’itinéraire Google Maps
+
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir mettre un lien qui renvoie vers l’itinéraire Google Maps
+> - Afin de pouvoir voir toutes les informations sur le trajet
+> - Possibilité de proposer une nouvelle horaire
+
+> En tant qu’utilisateur de l’application
+> - Je veux proposer une nouvelle horaire
+> - Afin de décaler le rdv
 LOT 3 :
-? ? Se connecter et créer un compte avec Google et Facebook
-? En tant ? qu’utilisateur de l’application
-? Je veux ? pouvoir me connecter grâce à Facebook et Google
-? Afin ?que ce soit plus rapide
+> En tant qu’utilisateur de l’application
+> - Je veux pouvoir me connecter grâce à Facebook et Google
+> - Afin que ce soit plus rapide
