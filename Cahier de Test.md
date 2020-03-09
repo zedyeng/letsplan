@@ -32,7 +32,7 @@ Inscription :
 |   3    |Ne pas renseigner un des champs obligatoires                  |Message d’erreur                                       |   OK              |
 |   4    |Entrer une adresse mail active                                |Message d’erreur                                       |   OK              |
 |   5    |Confirmation erronée du mdp                                   |Message d’erreur                                       |   OK              |
-|   6    |Entrer tous les champs correctement                           |Inscription à l’application et +connexion automatique  | partiellement OK  |
+|   6    |Entrer tous les champs correctement                           |Inscription à l’application et + connexion automatique | partiellement OK  |
 
 
 Créer un évènement :
